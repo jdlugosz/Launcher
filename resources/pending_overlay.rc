@@ -1,0 +1,5 @@
+#include "pending_overlay_resource.h"
+
+IDR_PENDING_BLINDS_4 LAUNCHER_PENDING_SVG "pending-blinds-4.svg"
+IDR_PENDING_BLINDS_5 LAUNCHER_PENDING_SVG "pending-blinds-5.svg"
+IDR_PENDING_BLINDS_6 LAUNCHER_PENDING_SVG "pending-blinds-6.svg"

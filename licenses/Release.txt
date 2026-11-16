@@ -1,0 +1,151 @@
+Długosz Software Community License, version 1.0
+
+Copyright (c) 2026 John Długosz.
+
+John Długosz offers the official Launcher Beta and Release distributions,
+and their identified corresponding source, under this license. Other
+Launcher distributions carry the terms specified in their own notices.
+
+1. Scope and definitions
+
+The Licensor is the copyright holder expressly offering identified software
+under this license. The Software is the original code, binaries, tools,
+documentation, examples, and original assets so identified. A Modified
+Version is a work derived from the Software under applicable copyright law.
+
+Separate third-party material retains its own license. Your configuration,
+data, and independent work are not covered merely because the Software
+opens, processes, launches, or otherwise helps you create or use them.
+
+Distribution means providing a copy to another person or organization.
+Copies used by your employees and contractors solely on your behalf in your
+internal operations are treated as internal use. Internal copies may not be
+used to supply a paid product or paid access to the Software to customers.
+
+Corresponding Source is the preferred form for modifying the distributed
+version, including its project build and installation scripts and needed
+interface definitions. It excludes ordinary system libraries, compilers,
+and other general-purpose tools obtained independently.
+
+2. Community permission
+
+Subject to these conditions, the Licensor grants you a worldwide,
+nonexclusive, royalty-free copyright license to inspect, copy, build, run,
+modify, and distribute the Software and Modified Versions. This permission
+continues for the duration of the licensed copyright unless terminated
+under section 8.
+
+Home use, internal organizational use, and use in paid work are permitted.
+Private modifications need not be published. You may produce and sell your
+own independent work using the Software, provided that work does not contain
+the Software or a Modified Version.
+
+3. Community distribution conditions
+
+For every distributed copy of the Software or a Modified Version, you must:
+
+(a) preserve the applicable copyright, attribution, license, and third-party
+    notices, and include this license;
+(b) identify material modifications and their author, and not misrepresent
+    a Modified Version as the Licensor's unmodified official release;
+(c) license the Software and the whole Modified Version under these same
+    community terms, without additional restrictions on the rights granted;
+(d) supply the complete Corresponding Source or provide recipients an
+    equally accessible download of that source without an additional fee;
+    you are responsible for keeping the source available while you offer
+    the corresponding binary download; and
+(e) comply with the commercial restrictions in section 4.
+
+These conditions do not require licensing independent programs collected
+alongside the Software under these terms. Section 4 still applies when that
+collection is supplied as part of a paid product or system. An unmodified
+mirror may point to matching source supplied by another provider, but must
+stop distributing binaries or provide the source itself if that source is
+no longer available.
+
+4. Commercial rights reserved
+
+This community license does not grant permission to:
+
+(a) sell, rent, sublicense for a fee, or require payment for access to the
+    Software or a Modified Version;
+(b) include any part of the Software or a Modified Version in a product or
+    system supplied to customers for payment or other required consideration,
+    whether embedded as code, bundled as a separate program, or preinstalled;
+    describing the Software as a free component does not exempt the bundle;
+(c) sell hosted access to the Software's functionality; or
+(d) distribute the Software or a Modified Version under proprietary terms or
+    without the source access required by section 3, even without charging.
+
+These activities require a separate written commercial license from the
+Licensor granting the necessary rights. Its fees, royalties, permitted
+uses, and any source-sharing exceptions are negotiated separately.
+The restrictions do not depend on whether the seller reports a profit or
+whether the Software supplies most of the larger product's value.
+
+5. Permitted services and free distribution channels
+
+You may charge for installation, configuration, training, and support
+services relating to a separately obtainable community copy.
+The customer must receive the rights, notices, and source access required
+by the community terms for any Software or Modified Version you distribute.
+The charge must be for your services rather than software access, a software
+license, a paid software bundle, or a proprietary Modified Version.
+
+You may provide no-charge downloads through mirrors and package managers,
+and review or describe the Software on advertising-supported sites.
+Voluntary tips are permitted only when neither payment nor a paid account
+is a condition of obtaining the community copy or its Corresponding Source.
+Labeling a payment as support, a donation, or a service does not exempt an
+activity otherwise reserved by section 4.
+
+6. Copyright, credit, and branding
+
+The Licensor retains copyright. Recipients receive their community rights
+directly from the relevant Licensor; distributors may not replace these
+terms with their own proprietary sublicense. Nothing requires publishing
+private changes or submitting them to the original project.
+
+No trademark license or right to claim endorsement is granted. You may
+identify the original project and author truthfully and retain the notices
+required above. Modified versions must be identified sufficiently clearly
+to avoid confusion with the official release.
+
+7. Patent permission
+
+For activities permitted by this license, each Licensor grants a worldwide,
+nonexclusive, royalty-free license under patent claims that Licensor can
+license and that are necessarily infringed by the Software as supplied by
+that Licensor. This grant does not cover claims infringed only because of
+your additions or combinations with other products. If you bring a patent
+claim alleging that the Software itself infringes a patent, your patent
+permission from that Licensor terminates when you bring that claim.
+
+8. Termination and cure
+
+Your permissions terminate upon breach of these conditions. They are
+reinstated if you fully remedy a first notified breach within 30 days of
+receiving written notice from the Licensor, unless that Licensor previously
+gave you written notice of another breach of this license. Other
+reinstatement requires written permission. Termination of your rights does
+not terminate the rights of recipients who remain in compliance.
+
+9. Warranty and liability
+
+To the extent permitted by applicable law, the Software is provided "as is",
+without warranties of any kind, including merchantability, fitness for a
+particular purpose, title, and noninfringement. No Licensor or contributor
+is liable for claims, losses, or damages arising from the Software or its
+use, whether in contract, tort, or otherwise, even if advised of their
+possibility. Mandatory rights and liabilities remain unaffected.
+
+10. Other rights and releases
+
+This license does not limit uses that applicable law permits without a
+license, or rights granted by independently licensed third-party material.
+No rights to third-party copyrights or patents are implied.
+
+The Licensor may offer separate licenses and different terms for later
+releases. That does not withdraw permissions validly granted for a copy
+already received under this license. A proposed future license, a voluntary
+tip, or a discussion of commercial terms grants no additional rights.

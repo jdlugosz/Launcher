@@ -1,0 +1,227 @@
+# Select this set with colors = "dark" in Launcher.toml.
+# Copy this file to AppData as colors-custom.toml; select colors = "custom" to edit it.
+# Generated from colors-light.toml by tools/generate-dark-colors.ps1.
+# Each palette keeps its first source page hue, except Yellow at H=60 degrees.
+# Page S decreases from 100% to 80%; B increases from 50% to 70%.
+# Inactive tabs are flat at the midpoint: B=60%, S=90%.
+# Tab hover: B=40%, S=100%; outline: B=75%, S=100%.
+# Icon hover uses white for a strong frame against every hue.
+# text is the tab-label color. Restart Launcher after editing.
+
+[colors.salmon]
+tab.gradient = [{ at = 0, color = "#99230F" }, { at = 1, color = "#99230F" }]
+tab.hover = "#660F00"
+page.gradient = [
+    { at = 0, color = "#801300" },
+    { at = 0.5, color = "#99230F" },
+    { at = 1, color = "#B33824" },
+]
+page.hover = "#FFFFFF"
+outline = "#BF1C00"
+text = "#F2F2F2"
+
+[colors.orange]
+tab.gradient = [{ at = 0, color = "#995E0F" }, { at = 1, color = "#995E0F" }]
+tab.hover = "#663A00"
+page.gradient = [
+    { at = 0, color = "#804900" },
+    { at = 0.5, color = "#995E0F" },
+    { at = 1, color = "#B37524" },
+]
+page.hover = "#FFFFFF"
+outline = "#BF6D00"
+text = "#F2F2F2"
+
+[colors.yellow]
+tab.gradient = [{ at = 0, color = "#99990F" }, { at = 1, color = "#99990F" }]
+tab.hover = "#666600"
+page.gradient = [
+    { at = 0, color = "#808000" },
+    { at = 0.5, color = "#99990F" },
+    { at = 1, color = "#B3B324" },
+]
+page.hover = "#FFFFFF"
+outline = "#BFBF00"
+text = "#F2F2F2"
+
+[colors.green]
+tab.gradient = [{ at = 0, color = "#0F992A" }, { at = 1, color = "#0F992A" }]
+tab.hover = "#006614"
+page.gradient = [
+    { at = 0, color = "#008019" },
+    { at = 0.5, color = "#0F992A" },
+    { at = 1, color = "#24B33F" },
+]
+page.hover = "#FFFFFF"
+outline = "#00BF25"
+text = "#F2F2F2"
+
+[colors.red]
+tab.gradient = [{ at = 0, color = "#99290F" }, { at = 1, color = "#99290F" }]
+tab.hover = "#661300"
+page.gradient = [
+    { at = 0, color = "#801700" },
+    { at = 0.5, color = "#99290F" },
+    { at = 1, color = "#B33E24" },
+]
+page.hover = "#FFFFFF"
+outline = "#BF2300"
+text = "#F2F2F2"
+
+[colors.rose]
+tab.gradient = [{ at = 0, color = "#990F49" }, { at = 1, color = "#990F49" }]
+tab.hover = "#66002B"
+page.gradient = [
+    { at = 0, color = "#800035" },
+    { at = 0.5, color = "#990F49" },
+    { at = 1, color = "#B32460" },
+]
+page.hover = "#FFFFFF"
+outline = "#BF0050"
+text = "#F2F2F2"
+
+[colors.teal]
+tab.gradient = [{ at = 0, color = "#0F995D" }, { at = 1, color = "#0F995D" }]
+tab.hover = "#00663A"
+page.gradient = [
+    { at = 0, color = "#008048" },
+    { at = 0.5, color = "#0F995D" },
+    { at = 1, color = "#24B375" },
+]
+page.hover = "#FFFFFF"
+outline = "#00BF6C"
+text = "#F2F2F2"
+
+[colors.cyan]
+tab.gradient = [{ at = 0, color = "#0F7D99" }, { at = 1, color = "#0F7D99" }]
+tab.hover = "#005266"
+page.gradient = [
+    { at = 0, color = "#006680" },
+    { at = 0.5, color = "#0F7D99" },
+    { at = 1, color = "#2496B3" },
+]
+page.hover = "#FFFFFF"
+outline = "#0099BF"
+text = "#F2F2F2"
+
+[colors.blue]
+tab.gradient = [{ at = 0, color = "#0F4D99" }, { at = 1, color = "#0F4D99" }]
+tab.hover = "#002E66"
+page.gradient = [
+    { at = 0, color = "#003A80" },
+    { at = 0.5, color = "#0F4D99" },
+    { at = 1, color = "#2464B3" },
+]
+page.hover = "#FFFFFF"
+outline = "#0056BF"
+text = "#F2F2F2"
+
+[colors.indigo]
+tab.gradient = [{ at = 0, color = "#1B0F99" }, { at = 1, color = "#1B0F99" }]
+tab.hover = "#090066"
+page.gradient = [
+    { at = 0, color = "#0B0080" },
+    { at = 0.5, color = "#1B0F99" },
+    { at = 1, color = "#3024B3" },
+]
+page.hover = "#FFFFFF"
+outline = "#1100BF"
+text = "#F2F2F2"
+
+[colors.violet]
+tab.gradient = [{ at = 0, color = "#570F99" }, { at = 1, color = "#570F99" }]
+tab.hover = "#350066"
+page.gradient = [
+    { at = 0, color = "#420080" },
+    { at = 0.5, color = "#570F99" },
+    { at = 1, color = "#6E24B3" },
+]
+page.hover = "#FFFFFF"
+outline = "#6300BF"
+text = "#F2F2F2"
+
+[colors.lavender]
+tab.gradient = [{ at = 0, color = "#600F99" }, { at = 1, color = "#600F99" }]
+tab.hover = "#3C0066"
+page.gradient = [
+    { at = 0, color = "#4A0080" },
+    { at = 0.5, color = "#600F99" },
+    { at = 1, color = "#7724B3" },
+]
+page.hover = "#FFFFFF"
+outline = "#7000BF"
+
+# Additional names from extra_colors remain available when selecting this set.
+text = "#F2F2F2"
+
+[colors.copper]
+tab.gradient = [{ at = 0, color = "#99540F" }, { at = 1, color = "#99540F" }]
+tab.hover = "#663300"
+page.gradient = [{ at = 0, color = "#804000" }, { at = 0.5, color = "#99540F" }, { at = 1, color = "#B36B24" }]
+page.hover = "#FFFFFF"
+outline = "#BF6000"
+text = "#F2F2F2"
+
+[colors.purple]
+tab.gradient = [{ at = 0, color = "#580F99" }, { at = 1, color = "#580F99" }]
+tab.hover = "#360066"
+page.gradient = [{ at = 0, color = "#430080" }, { at = 0.5, color = "#580F99" }, { at = 1, color = "#6F24B3" }]
+page.hover = "#FFFFFF"
+outline = "#6500BF"
+text = "#F2F2F2"
+
+[colors.plum]
+tab.gradient = [{ at = 0, color = "#990F6B" }, { at = 1, color = "#990F6B" }]
+tab.hover = "#660044"
+page.gradient = [{ at = 0, color = "#800055" }, { at = 0.5, color = "#990F6B" }, { at = 1, color = "#B32483" }]
+page.hover = "#FFFFFF"
+outline = "#BF0080"
+text = "#F2F2F2"
+
+[colors.gold]
+tab.gradient = [{ at = 0, color = "#99750F" }, { at = 1, color = "#99750F" }]
+tab.hover = "#664C00"
+page.gradient = [{ at = 0, color = "#805F00" }, { at = 0.5, color = "#99750F" }, { at = 1, color = "#B38E24" }]
+page.hover = "#FFFFFF"
+outline = "#BF8E00"
+text = "#F2F2F2"
+
+[colors.lime]
+tab.gradient = [{ at = 0, color = "#8E990F" }, { at = 1, color = "#8E990F" }]
+tab.hover = "#5E6600"
+page.gradient = [{ at = 0, color = "#758000" }, { at = 0.5, color = "#8E990F" }, { at = 1, color = "#A7B324" }]
+page.hover = "#FFFFFF"
+outline = "#B0BF00"
+text = "#F2F2F2"
+
+[colors.emerald]
+tab.gradient = [{ at = 0, color = "#0F994F" }, { at = 1, color = "#0F994F" }]
+tab.hover = "#00662F"
+page.gradient = [{ at = 0, color = "#00803B" }, { at = 0.5, color = "#0F994F" }, { at = 1, color = "#24B366" }]
+page.hover = "#FFFFFF"
+outline = "#00BF58"
+text = "#F2F2F2"
+
+[colors.turquoise]
+tab.gradient = [{ at = 0, color = "#0F9977" }, { at = 1, color = "#0F9977" }]
+tab.hover = "#00664D"
+page.gradient = [{ at = 0, color = "#008060" }, { at = 0.5, color = "#0F9977" }, { at = 1, color = "#24B38F" }]
+page.hover = "#FFFFFF"
+outline = "#00BF8F"
+text = "#F2F2F2"
+
+[colors.silver]
+tab.gradient = [{ at = 0, color = "#0F3299" }, { at = 1, color = "#0F3299" }]
+tab.hover = "#001966"
+page.gradient = [{ at = 0, color = "#002080" }, { at = 0.5, color = "#0F3299" }, { at = 1, color = "#2447B3" }]
+page.hover = "#FFFFFF"
+outline = "#0030BF"
+text = "#F2F2F2"
+
+[colors.slate]
+tab.gradient = [{ at = 0, color = "#0F6299" }, { at = 1, color = "#0F6299" }]
+tab.hover = "#003D66"
+page.gradient = [{ at = 0, color = "#004C80" }, { at = 0.5, color = "#0F6299" }, { at = 1, color = "#2479B3" }]
+page.hover = "#FFFFFF"
+outline = "#0073BF"
+text = "#F2F2F2"

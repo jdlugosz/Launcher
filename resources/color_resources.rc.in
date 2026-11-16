@@ -1,0 +1,12 @@
+#include "@CMAKE_CURRENT_SOURCE_DIR@/resources/launcher_resource.h"
+
+// Resource identifiers are unquoted: RC otherwise stores the quote characters.
+
+basic_colors.toml LAUNCHER_TOML_RESOURCE "@LAUNCHER_COMPACT_COLOR_DIRECTORY@/basic_colors.toml"
+extra_colors.toml LAUNCHER_TOML_RESOURCE "@LAUNCHER_COMPACT_COLOR_DIRECTORY@/extra_colors.toml"
+colors-light.toml LAUNCHER_TOML_RESOURCE "@LAUNCHER_COMPACT_COLOR_DIRECTORY@/colors-light.toml"
+colors-dark.toml LAUNCHER_TOML_RESOURCE "@LAUNCHER_COMPACT_COLOR_DIRECTORY@/colors-dark.toml"
+
+// Immutable starter data for installed accounts; editable copies live in AppData.
+DEMO_CONFIGURATION RCDATA "@CMAKE_CURRENT_SOURCE_DIR@/examples/demo_many_colors.toml"
+DEMO_ICON RCDATA "@LAUNCHER_DEMO_ICON@"

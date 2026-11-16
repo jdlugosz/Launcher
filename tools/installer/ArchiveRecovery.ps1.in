@@ -1,0 +1,344 @@
+#requires -Version 5.1
+# Generated into packages that carry publisher-signed archive identity.
+
+function Test-LauncherArchiveIdentity($Identity) {
+    $size = Get-LauncherDiscoveryProperty $Identity 'Size'
+    return (Get-LauncherDiscoveryProperty $Identity 'Build') -cmatch '\A[a-z0-9][a-z0-9_-]{0,63}\z' -and
+        (Get-LauncherDiscoveryProperty $Identity 'Platform') -ceq 'windows-x64' -and
+        ($size -is [int] -or $size -is [long]) -and $size -gt 0 -and $size -le 64MB -and
+        (Get-LauncherDiscoveryProperty $Identity 'Sha256') -cmatch '\A[0-9A-F]{64}\z'
+}
+
+function Read-LauncherArchiveData([string]$Path, [int]$MaximumBytes) {
+    [void](Assert-LauncherSetupDirectory ([IO.Path]::GetDirectoryName($Path)))
+    $entry = Get-LauncherSetupEntry $Path
+    if (!$entry -or $entry.PSIsContainer -or ($entry.Attributes -band [IO.FileAttributes]::ReparsePoint)) {
+        throw 'Signed Launcher archive evidence must be stored in regular files.'
+    }
+    $stream = [IO.File]::Open($Path, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::Read)
+    try {
+        if ($stream.Length -le 0 -or $stream.Length -gt $MaximumBytes) { throw 'A Launcher archive evidence file has an invalid size.' }
+        $reader = [IO.BinaryReader]::new($stream)
+        try {
+            $bytes = $reader.ReadBytes([int]$stream.Length)
+            if ($bytes.Length -ne $stream.Length) { throw 'A Launcher archive evidence file changed during verification.' }
+            return ,$bytes
+        } finally { $reader.Dispose() }
+    } finally { $stream.Dispose() }
+}
+
+function Confirm-LauncherArchiveSignature([byte[]]$ArchiveHash, [byte[]]$SignatureBytes, [byte[]]$CertificateBytes) {
+    $certificates = [Collections.Generic.List[byte[]]]::new()
+    $certificates.Add($CertificateBytes)
+    $additionalCertificateHex = '@LAUNCHER_ARCHIVE_ADDITIONAL_SIGNER_HEX@'
+    if ($additionalCertificateHex) {
+        if ($additionalCertificateHex.Length -gt 32KB -or $additionalCertificateHex.Length % 2 -ne 0) {
+            throw 'The additional Launcher archive signer certificate has an invalid size.'
+        }
+        $additionalCertificate = [byte[]]::new($additionalCertificateHex.Length / 2)
+        for ($i = 0; $i -lt $additionalCertificate.Length; $i++) {
+            $additionalCertificate[$i] = [Convert]::ToByte($additionalCertificateHex.Substring($i * 2, 2), 16)
+        }
+        $certificates.Add($additionalCertificate)
+    }
+
+    $verified = $false
+    foreach ($bytes in $certificates) {
+        $certificate = [Security.Cryptography.X509Certificates.X509Certificate2]::new($bytes)
+        try {
+            $key = [Security.Cryptography.X509Certificates.RSACertificateExtensions]::GetRSAPublicKey($certificate)
+            if (!$key) { throw 'The Launcher archive signer certificate has no RSA key.' }
+            try {
+                if ($SignatureBytes.Length -eq (($key.KeySize + 7) -shr 3) -and
+                    $key.VerifyHash($ArchiveHash, $SignatureBytes, [Security.Cryptography.HashAlgorithmName]::SHA256,
+                        [Security.Cryptography.RSASignaturePadding]::Pkcs1)) {
+                    $verified = $true
+                }
+            } finally { $key.Dispose() }
+        } finally { $certificate.Dispose() }
+    }
+    if (!$verified) { throw 'The Launcher ZIP signature could not be verified.' }
+}
+
+function Get-LauncherVerifiedArchive {
+    [CmdletBinding()]
+    param([Parameter(Mandatory)][string]$Archive, [Parameter(Mandatory)][string]$Signature,
+        [Parameter(Mandatory)][string]$Version, $ExpectedIdentity, [string]$ExtractDirectory)
+    $zipBytes = Read-LauncherArchiveData $Archive 64MB
+    $signatureBytes = Read-LauncherArchiveData $Signature 16KB
+    $certificateBytes = Read-LauncherArchiveData (Join-Path $PSScriptRoot 'ArchiveSigner.cer') 16KB
+    $algorithm = [Security.Cryptography.SHA256]::Create()
+    try {
+        if ([BitConverter]::ToString($algorithm.ComputeHash($certificateBytes)).Replace('-', '') -cne '@LAUNCHER_ARCHIVE_SIGNER_SHA256@') {
+            throw 'The installed Launcher archive signer certificate does not match the publisher pin.'
+        }
+        $archiveHash = $algorithm.ComputeHash($zipBytes)
+        $sha256 = [BitConverter]::ToString($archiveHash).Replace('-', '')
+        if ($ExpectedIdentity -and (!(Test-LauncherArchiveIdentity $ExpectedIdentity) -or
+            $ExpectedIdentity.Size -ne $zipBytes.Length -or $ExpectedIdentity.Sha256 -cne $sha256)) {
+            throw 'The Launcher ZIP differs from the exact archive recorded for this build.'
+        }
+        Confirm-LauncherArchiveSignature $archiveHash $signatureBytes $certificateBytes
+
+        Add-Type -AssemblyName System.IO.Compression
+        $root = "Launcher-R$Version-windows-x64/"
+        $memory = [IO.MemoryStream]::new($zipBytes, $false)
+        try {
+            $zip = [IO.Compression.ZipArchive]::new($memory, [IO.Compression.ZipArchiveMode]::Read, $false)
+            try {
+                if ($zip.Entries.Count -gt 1024) { throw 'The signed Launcher ZIP contains too many entries.' }
+                $members = [Collections.Generic.Dictionary[string,object]]::new([StringComparer]::OrdinalIgnoreCase)
+                [long]$total = 0
+                foreach ($entry in $zip.Entries) {
+                    $name = $entry.FullName.Replace('\', '/')
+                    $total += $entry.Length
+                    if ($total -gt 256MB) { throw 'The signed Launcher ZIP exceeds the extraction limit.' }
+                    if (!$name.StartsWith($root, [StringComparison]::Ordinal) -or $name.EndsWith('/')) { continue }
+                    $relative = $name.Substring($root.Length).Replace('/', '\')
+                    if ($relative -cne 'Launcher.archive.json' -and !(Test-LauncherManagedRelativePath $relative)) { continue }
+                    if ($members.ContainsKey($relative)) { throw 'The signed Launcher ZIP contains ambiguous file names.' }
+                    $members.Add($relative, $entry)
+                }
+                if (!$members.ContainsKey('Launcher.archive.json') -or $members['Launcher.archive.json'].Length -gt 4KB) {
+                    throw 'The signed Launcher ZIP has no usable archive identity.'
+                }
+                $reader = [IO.StreamReader]::new($members['Launcher.archive.json'].Open(), [Text.UTF8Encoding]::new($false, $true))
+                try { $metadata = $reader.ReadToEnd() | ConvertFrom-Json -ErrorAction Stop }
+                finally { $reader.Dispose() }
+                $identity = [pscustomobject]@{
+                    Build = Get-LauncherDiscoveryProperty $metadata 'Build'; Platform = Get-LauncherDiscoveryProperty $metadata 'Platform'
+                    Size = $zipBytes.Length; Sha256 = $sha256
+                }
+                if ((Get-LauncherDiscoveryProperty $metadata 'SchemaVersion') -ne 1 -or
+                    (Get-LauncherDiscoveryProperty $metadata 'Package') -cne 'launcher' -or
+                    (Get-LauncherDiscoveryProperty $metadata 'Version') -cne $Version -or
+                    !(Test-LauncherArchiveIdentity $identity) -or
+                    ($ExpectedIdentity -and $ExpectedIdentity.Build -cne $identity.Build)) { throw 'The signed Launcher archive identity does not match the expected build.' }
+
+                $hashes = [Collections.Generic.Dictionary[string,string]]::new([StringComparer]::OrdinalIgnoreCase)
+                foreach ($relative in $members.Keys) {
+                    $stream = $members[$relative].Open()
+                    try { $hashes.Add($relative, [BitConverter]::ToString($algorithm.ComputeHash($stream)).Replace('-', '')) }
+                    finally { $stream.Dispose() }
+                    if ($ExtractDirectory) {
+                        $destination = Join-Path $ExtractDirectory $relative
+                        $parent = [IO.Path]::GetDirectoryName($destination)
+                        [void](Assert-LauncherSetupDirectory $parent)
+                        [void][IO.Directory]::CreateDirectory($parent)
+                        $source = $members[$relative].Open()
+                        try {
+                            $target = [IO.File]::Open($destination, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::None)
+                            try { $source.CopyTo($target) } finally { $target.Dispose() }
+                        } finally { $source.Dispose() }
+                    }
+                }
+                return [pscustomobject]@{ Identity = $identity; Files = $hashes }
+            } finally { $zip.Dispose() }
+        } finally { $memory.Dispose() }
+    } finally { $algorithm.Dispose() }
+}
+
+function Get-LauncherInstallArchiveIdentity($Payload, [Guid]$TransactionId) {
+    $directory = [IO.Path]::GetDirectoryName($Payload.PackageDirectory)
+    $parent = [IO.Path]::GetDirectoryName($directory)
+    if (!$parent) { return }
+    $marker = Join-Path $directory '.launcher-updater-archive.json'
+    $archive = Join-Path $parent 'package.zip'
+    $signature = Join-Path $parent 'package.sig'
+    $expected = $null
+    if (Get-LauncherSetupEntry $marker) {
+        $bytes = Read-LauncherArchiveData $marker 4KB
+        $expected = [Text.UTF8Encoding]::new($false, $true).GetString($bytes) | ConvertFrom-Json -ErrorAction Stop
+        if ($TransactionId -eq [Guid]::Empty -or (Get-LauncherDiscoveryProperty $expected 'SchemaVersion') -ne 1 -or
+            (Get-LauncherDiscoveryProperty $expected 'TransactionId') -cne $TransactionId.ToString('N') -or
+            !(Test-LauncherArchiveIdentity $expected)) { throw 'Setup could not bind its archive metadata to the update transaction.' }
+    } else {
+        # File Explorer's default Extract All layout leaves the ZIP and its
+        # detached signature beside the outer directory. Also look alongside
+        # Install.cmd when the user extracted into the download directory.
+        $packageName = [IO.Path]::GetFileName($Payload.PackageDirectory)
+        $archive = $null
+        foreach ($location in @($directory, $parent)) {
+            $candidate = Join-Path $location ($packageName + '.zip')
+            if ((Get-LauncherSetupEntry $candidate) -and (Get-LauncherSetupEntry ($candidate + '.sig'))) {
+                $archive = $candidate
+                break
+            }
+        }
+        if (!$archive) { return }
+        $signature = $archive + '.sig'
+    }
+    $verified = Get-LauncherVerifiedArchive -Archive $archive -Signature $signature -Version $Payload.VersionLabel -ExpectedIdentity $expected
+    foreach ($file in $Payload.Files) {
+        if (!$verified.Files.ContainsKey($file.RelativePath) -or $verified.Files[$file.RelativePath] -cne $file.Sha256) {
+            throw 'Extracted Launcher Setup files differ from the authenticated archive.'
+        }
+    }
+    return $verified.Identity
+}
+
+function Get-LauncherSavedArchiveIdentity($Saved, $Incoming) {
+    if ((Get-LauncherDiscoveryProperty $Saved 'SchemaVersion') -ne 1 -or
+        (Get-LauncherDiscoveryProperty $Saved 'InstallScope') -cne $Incoming.InstallScope -or
+        [string](Get-LauncherDiscoveryProperty $Saved 'InstallUserSid') -cne $Incoming.InstallUserSid) { return }
+    $history = Get-LauncherDiscoveryProperty $Saved 'ArchiveHistory'
+    $current = Get-LauncherDiscoveryProperty $history 'Current'
+    if ((Get-LauncherDiscoveryProperty $history 'SchemaVersion') -eq 1 -and (Test-LauncherArchiveIdentity $current)) { return $current }
+}
+
+function Get-LauncherRepairArchiveIdentity($Saved, $Incoming, [string]$Version, [string]$ExecutableHash) {
+    $current = Get-LauncherSavedArchiveIdentity $Saved $Incoming
+    if (!$current -or (Get-LauncherDiscoveryProperty $Saved 'ActiveVersionedExecutable') -cne "Launcher-R$Version.exe") { return }
+    try {
+        # Validate both active/numbered executable rows and compare the owned
+        # companions to the bytes the repair will actually leave installed.
+        $before = Get-LauncherQuickRollbackCompanionHashes $Saved.Files $Version $ExecutableHash
+        $after = Get-LauncherQuickRollbackCompanionHashes $Incoming.Files $Version $ExecutableHash
+        if ($before.Count -ne $after.Count) { return }
+        foreach ($relative in $before.Keys) {
+            if (!$after.ContainsKey($relative) -or $after[$relative] -cne $before[$relative]) { return }
+        }
+    } catch { return }
+    return $current
+}
+
+function Get-LauncherPreviousArchiveIdentity($Saved, $Incoming, $Review, [string]$Directory, [bool]$Changed) {
+    $current = Get-LauncherSavedArchiveIdentity $Saved $Incoming
+    if (!$current) { return }
+    if (!$Changed) {
+        $history = Get-LauncherDiscoveryProperty $Saved 'ArchiveHistory'
+        $previous = Get-LauncherDiscoveryProperty $history 'Previous'
+        $transaction = Get-LauncherDiscoveryProperty $Review 'TransactionId'
+        $restored = Get-LauncherDiscoveryProperty $Review 'Previous'
+        $installed = Get-LauncherDiscoveryProperty $Review 'Current'
+        $incoming = $Incoming.ArchiveHistory.Current
+        if ($transaction -cmatch '\A[0-9a-f]{32}\z' -and $transaction -cne ('0' * 32) -and
+            (Get-LauncherDiscoveryProperty $history 'TransactionId') -ceq $transaction -and
+            (Test-LauncherQuickRollbackBuildIdentity $restored) -and (Test-LauncherQuickRollbackBuildIdentity $installed) -and
+            $restored.Version -cne $installed.Version -and $restored.Sha256 -cne $installed.Sha256 -and
+            $current.Build -ceq $incoming.Build -and $current.Platform -ceq $incoming.Platform -and
+            $current.Size -eq $incoming.Size -and $current.Sha256 -ceq $incoming.Sha256 -and
+            (Test-LauncherArchiveIdentity $previous) -and $previous.Build -cne $current.Build -and
+            $previous.Sha256 -cne $current.Sha256) { return $previous }
+        return
+    }
+    $previousBuild = [pscustomobject]$Review.Previous
+    if (!(Test-LauncherQuickRollbackBuildIdentity $previousBuild) -or
+        $Saved.ActiveVersionedExecutable -cne "Launcher-R$($previousBuild.Version).exe") { return }
+    try {
+        $owned = Get-LauncherQuickRollbackCompanionHashes $Saved.Files $previousBuild.Version $previousBuild.Sha256
+        foreach ($relative in $owned.Keys) {
+            # Setup always preserves user copies of the example TOMLs.
+            if ($relative.StartsWith('examples\', [StringComparison]::OrdinalIgnoreCase)) { continue }
+            $path = Join-Path $Directory $relative
+            [void](Assert-LauncherSetupDirectory ([IO.Path]::GetDirectoryName($path)))
+            $entry = Get-LauncherSetupEntry $path
+            if (!$entry -or $entry.PSIsContainer -or ($entry.Attributes -band [IO.FileAttributes]::ReparsePoint) -or
+                (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash -cne $owned[$relative]) { return }
+        }
+    } catch { return }
+    return $current
+}
+
+function Get-LauncherArchiveRestoreManifest([string]$Directory, $RegistrationScope, [string]$TransactionId) {
+    if (!$RegistrationScope -or $TransactionId -cnotmatch '\A[0-9a-f]{32}\z' -or $TransactionId -ceq ('0' * 32)) {
+        throw 'Archive revert requires the exact registered installation and update transaction.'
+    }
+    $manifestPath = Join-Path $Directory 'Launcher.install-manifest.json'
+    $bytes = Read-LauncherArchiveData $manifestPath 1MB
+    $manifest = [Text.UTF8Encoding]::new($false, $true).GetString($bytes) | ConvertFrom-Json -ErrorAction Stop
+    $review = Get-LauncherDiscoveryProperty $manifest 'LastUpdate'
+    $history = Get-LauncherDiscoveryProperty $manifest 'ArchiveHistory'
+    $generation = Get-LauncherDiscoveryProperty $manifest 'SetupGeneration'
+    $current = Get-LauncherDiscoveryProperty $review 'Current'
+    $previous = Get-LauncherDiscoveryProperty $review 'Previous'
+    $currentArchive = Get-LauncherDiscoveryProperty $history 'Current'
+    $previousArchive = Get-LauncherDiscoveryProperty $history 'Previous'
+    $aliasKind = Get-LauncherDiscoveryProperty $manifest 'AliasKind'
+    if ((Get-LauncherDiscoveryProperty $manifest 'SchemaVersion') -ne 1 -or
+        (Get-LauncherDiscoveryProperty $manifest 'InstallScope') -cne $RegistrationScope.Scope -or
+        [string](Get-LauncherDiscoveryProperty $manifest 'InstallUserSid') -cne [string]$RegistrationScope.UserSid -or
+        $generation -cnotmatch '\A[0-9a-f]{32}\z' -or $generation -ceq ('0' * 32) -or
+        (Get-LauncherDiscoveryProperty $review 'SchemaVersion') -ne 1 -or
+        (Get-LauncherDiscoveryProperty $review 'TransactionId') -cne $TransactionId -or
+        (Get-LauncherDiscoveryProperty $history 'SchemaVersion') -ne 1 -or
+        (Get-LauncherDiscoveryProperty $history 'TransactionId') -cne $TransactionId -or
+        !(Test-LauncherQuickRollbackBuildIdentity $current) -or !(Test-LauncherQuickRollbackBuildIdentity $previous) -or
+        !(Test-LauncherArchiveIdentity $currentArchive) -or !(Test-LauncherArchiveIdentity $previousArchive) -or
+        $currentArchive.Sha256 -ceq $previousArchive.Sha256 -or $current.Version -ceq $previous.Version -or
+        $aliasKind -cnotin @('HardLink', 'Copy') -or
+        (Get-LauncherDiscoveryProperty $manifest 'ActiveVersionedExecutable') -cne "Launcher-R$($current.Version).exe") {
+        throw 'This installation has no matching, verified archive revert record.'
+    }
+    $algorithm = [Security.Cryptography.SHA256]::Create()
+    try { $manifestHash = [BitConverter]::ToString($algorithm.ComputeHash($bytes)).Replace('-', '') }
+    finally { $algorithm.Dispose() }
+    $owned = Get-LauncherQuickRollbackCompanionHashes $manifest.Files $current.Version $current.Sha256
+    Assert-LauncherQuickRollbackFile (Join-Path $Directory 'Launcher.exe') $current.Sha256
+    return [pscustomobject]@{
+        Directory = $Directory; ManifestHash = $manifestHash; RegistrationScope = $RegistrationScope; TransactionId = $TransactionId
+        Current = $current; Previous = $previous; CurrentArchive = $currentArchive; PreviousArchive = $previousArchive
+        Owned = $owned; AliasKind = $aliasKind; Review = $review
+    }
+}
+
+function Assert-LauncherArchiveRestoreManifest([string]$Directory, $Plan) {
+    $now = Get-LauncherArchiveRestoreManifest $Directory $Plan.RegistrationScope $Plan.TransactionId
+    if ($Directory -ine $Plan.Directory -or $now.ManifestHash -cne $Plan.ManifestHash) {
+        throw 'The registered installation changed while its archived revert was prepared.'
+    }
+}
+
+function Assert-LauncherArchiveRestorePackages($Plan, $Current, $Previous) {
+    $currentName = "Launcher-R$($Plan.Current.Version).exe"
+    $previousName = "Launcher-R$($Plan.Previous.Version).exe"
+    if (!$Current.Files.ContainsKey($currentName) -or $Current.Files[$currentName] -cne $Plan.Current.Sha256 -or
+        !$Previous.Files.ContainsKey($previousName) -or $Previous.Files[$previousName] -cne $Plan.Previous.Sha256) {
+        throw 'A verified archive executable does not match the recorded installation.'
+    }
+    foreach ($relative in $Plan.Owned.Keys) {
+        if (!$Current.Files.ContainsKey($relative) -or $Current.Files[$relative] -cne $Plan.Owned[$relative]) {
+            throw 'The installation ownership record disagrees with the signed current package.'
+        }
+    }
+}
+
+function Remove-LauncherArchiveSourceStage([string]$Directory) {
+    # This stage contains only the allowlisted ZIP members created by the
+    # verifier, in the root and at most the docs/examples subdirectories.
+    foreach ($path in @((Join-Path $Directory 'docs'), (Join-Path $Directory 'examples'), $Directory)) {
+        if (!(Get-LauncherSetupEntry $path)) { continue }
+        try {
+            [void](Assert-LauncherSetupDirectory $path)
+            foreach ($file in Get-ChildItem -LiteralPath $path -Force -File) {
+                if (!($file.Attributes -band [IO.FileAttributes]::ReparsePoint)) { [IO.File]::Delete($file.FullName) }
+            }
+            [IO.Directory]::Delete($path)
+        } catch { Write-Warning "Launcher archive staging retained: $path" }
+    }
+}
+
+function Invoke-LauncherArchiveRestoreRecovery {
+    [CmdletBinding()]
+    param([string]$Directory, $RegistrationScope, $Context = (Get-LauncherRegistrationContext),
+        [scriptblock]$Store = { param($Operation, $Plan, $Snapshot) Invoke-LauncherRegistrationStore $Operation $Plan $Snapshot })
+    if (!(Get-LauncherSetupEntry (Join-Path $Directory '.launcher-archive-restore.json'))) { return }
+    Assert-LauncherRegistrationContext -Scope $RegistrationScope.Scope -UserSid $RegistrationScope.UserSid -Context $Context
+    $restoreRegistration = {
+        param($OldVersion, $NewVersion, [bool]$Apply)
+        $registration = Get-LauncherRegistrationPlan -Directory $Directory -Scope $RegistrationScope.Scope -UserSid $RegistrationScope.UserSid -Version $OldVersion
+        $snapshot = & $Store 'Read' $registration $null
+        $current = if ($snapshot.Values.Contains('DisplayVersion')) { [string]$snapshot.Values['DisplayVersion'].Value } else { '' }
+        if ($current -cnotin @($OldVersion, $NewVersion)) { throw 'Launcher registration changed after the interrupted archived revert.' }
+        Assert-LauncherQuickRollbackRegistration $registration $snapshot $current
+        if (!$Apply -or $current -ceq $OldVersion) { return }
+        $change = New-LauncherRegistrationTransaction -Plan $registration -Context $Context -Store $Store
+        Assert-LauncherQuickRollbackRegistration $registration $change.Snapshot $NewVersion
+        foreach ($name in @('EstimatedSize', 'InstallDate')) {
+            if ($change.Snapshot.Values.Contains($name)) { $registration.Values[$name] = $change.Snapshot.Values[$name].Value }
+        }
+        Set-LauncherRegistrationTransaction $change | Out-Null
+        Assert-LauncherQuickRollbackRegistration $registration (& $Store 'Read' $registration $null) $OldVersion
+    }
+    Repair-LauncherArchiveRestoreJournal -Directory $Directory -RestoreRegistration $restoreRegistration | Out-Null
+}

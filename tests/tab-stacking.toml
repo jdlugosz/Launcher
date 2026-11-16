@@ -1,0 +1,54 @@
+schema_version = 1
+
+[dock]
+edge = "top"
+display = "primary"
+auto_hide = true
+suppress_fullscreen = true
+
+[grid]
+columns = 6
+rows = 1
+icon_size_dip = 38.4
+icon_spacing_px = 8
+
+[appearance]
+text_size_pt = 9
+tooltip_delay_ms = 700
+
+# Unequal labels wrap into at least three partly filled rows. Omitting short
+# names keeps those row memberships stable as every tab becomes active.
+[[tabs]]
+name = "General utilities and system tools"
+color = "#EE9696"
+items = [{ label = "General", icon = { stock = "computer" } }]
+
+[[tabs]]
+name = "Documents and reference material"
+color = "#F3CE82"
+items = [{ label = "Documents", icon = { stock = "document" } }]
+
+[[tabs]]
+name = "Links and online resources"
+color = "#BED878"
+items = [{ label = "Links", icon = { stock = "world" } }]
+
+[[tabs]]
+name = "Tools"
+color = "#DAE67B"
+items = [{ label = "Tools", icon = { stock = "folder" } }]
+
+[[tabs]]
+name = "Media"
+color = "#A5D9E8"
+items = [{ label = "Media", icon = { stock = "folder" } }]
+
+[[tabs]]
+name = "Research archives"
+color = "#C4B0E8"
+items = [{ label = "Research", icon = { stock = "find" } }]
+
+[[tabs]]
+name = "Other"
+color = "#E8B0CE"
+items = [{ label = "Other", icon = { stock = "folder" } }]

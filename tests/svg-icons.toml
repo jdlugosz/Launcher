@@ -1,0 +1,19 @@
+schema_version = 1
+
+[grid]
+columns = 3
+icon_size_dip = 72
+
+[paths]
+Artwork = 'icons'
+
+[[tabs]]
+name = "SVG icons"
+color = "#EE9696"
+items = [
+    { label = "Vector gradient", icon = '$Artwork\vector-gradient.svg', flags = 1 },
+    { label = "Wide vector", icon = '$Artwork\vector-wide.svg' },
+    { label = "Missing SVG fallback", icon = '$Artwork\missing.svg' },
+    { kind = "spacer", flags = 4 },
+    { kind = "break", flags = 5 },
+]

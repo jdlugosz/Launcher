@@ -1,0 +1,95 @@
+# Windows PowerShell 5.1. The Launcher process owns the browser fallback.
+if ($ExecutionContext.SessionState.LanguageMode -ne 'FullLanguage') {
+    exit 12
+}
+
+Set-StrictMode -Version 2.0
+$ErrorActionPreference = 'Stop'
+
+$setupUrl = '@LAUNCHER_UPDATER_SETUP_URL@'
+$publisherSha256 = '@LAUNCHER_UPDATER_SIGNER_SHA256@'
+if (!$setupUrl -or !$publisherSha256) {
+    exit 1
+}
+
+$path = Join-Path $PSScriptRoot 'SharedUpdaterClient-Setup.exe'
+$response = $body = $file = $filePin = $sha256 = $process = $null
+$created = $false
+$result = 1
+try {
+    $request = [Net.WebRequest]::Create([uri] $setupUrl)
+    $request.AllowAutoRedirect = $false
+    $request.Timeout = 30000
+    $request.ReadWriteTimeout = 15000
+    $request.MaximumResponseHeadersLength = 16
+    $elapsed = [Diagnostics.Stopwatch]::StartNew()
+    $response = $request.GetResponse()
+    $expected = $response.ContentLength
+    $maximum = 64MB
+    if ($response.StatusCode -ne [Net.HttpStatusCode]::OK -or $expected -gt $maximum) {
+        throw 'The updater setup download was rejected.'
+    }
+
+    $body = $response.GetResponseStream()
+    $file = [IO.File]::Open($path, 'CreateNew', 'Write', 'None')
+    $created = $true
+    $buffer = [byte[]]::new(64KB)
+    $total = 0L
+    do {
+        $count = $body.Read($buffer, 0, $buffer.Length)
+        $total += $count
+        if ($total -gt $maximum -or $elapsed.Elapsed.TotalSeconds -gt 120 -or
+            ($expected -ge 0 -and $total -gt $expected)) {
+            throw 'The updater setup download exceeded its limits.'
+        }
+        $file.Write($buffer, 0, $count)
+    } while ($count -ne 0)
+    if ($expected -ge 0 -and $total -ne $expected) {
+        throw 'The updater setup download was incomplete.'
+    }
+    $file.Dispose()
+    $file = $null
+    $body.Dispose()
+    $body = $null
+    $response.Dispose()
+    $response = $null
+
+    Set-Content -LiteralPath $path -Stream Zone.Identifier -Encoding Ascii -Value '[ZoneTransfer]', 'ZoneId=3'
+    # Keep the verified file pinned through setup's exit so it cannot be swapped after verification.
+    $filePin = [IO.File]::Open($path, 'Open', 'Read', 'Read')
+    $signature = Get-AuthenticodeSignature -LiteralPath $path
+    if ($signature.Status -ne 'Valid' -or !$signature.SignerCertificate) {
+        throw 'Updater setup has no valid publisher signature.'
+    }
+    $sha256 = [Security.Cryptography.SHA256]::Create()
+    $signer = [BitConverter]::ToString($sha256.ComputeHash($signature.SignerCertificate.RawData)).Replace('-', '')
+    if ($signer -ne $publisherSha256) {
+        throw 'Updater setup has an unexpected publisher certificate.'
+    }
+
+    $process = Start-Process -FilePath $path -ArgumentList '/norestart' -Wait -PassThru
+    if ($process.ExitCode -eq 0) {
+        $result = 0
+    } elseif ($process.ExitCode -in @(1223, 1602, 1641, 3010)) {
+        # Setup was canceled or its work requires a restart before a check.
+        $result = 3
+    }
+}
+catch {
+    $failure = $_.Exception.GetBaseException()
+    if ($failure -is [ComponentModel.Win32Exception] -and $failure.NativeErrorCode -eq 1223) {
+        $result = 3
+    }
+}
+finally {
+    foreach ($resource in $process, $sha256, $filePin, $file, $body, $response) {
+        if ($null -ne $resource) {
+            try { $resource.Dispose() } catch {}
+        }
+    }
+    if ($created) {
+        try { [IO.File]::Delete($path) } catch {}
+    }
+}
+
+exit $result

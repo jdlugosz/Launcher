@@ -1,0 +1,36 @@
+Launcher prerelease evaluation terms
+
+Copyright (c) 2026 John Długosz. All rights reserved.
+
+This is a prerelease copy supplied for evaluation. These terms apply to
+the Launcher source code, executables, tools, documentation, examples,
+and original assets supplied with this notice, except for separately
+licensed third-party material.
+
+If John Długosz supplied you a copy or expressly authorized your access, you
+may build, install, and run that copy for your own evaluation, including
+evaluation at work. You may make the local copies necessary for those
+activities and for your own backup, and edit your configuration files.
+Keep this notice with those copies. These limited permissions do not
+authorize sharing the software or source code with other recipients.
+
+Except for the limited evaluation permissions above, or separate written
+permission from John Długosz, you may not copy, modify, publish, distribute,
+redistribute, sublicense, sell, or incorporate this software or its source
+code into another product. In particular, do not upload it to a public
+repository, share a download, or pass a copy to another person.
+
+Third-party components retain their own copyrights and licenses, as
+described in THIRD-PARTY-NOTICES.txt and any accompanying notices. Nothing
+in this notice restricts rights granted by those licenses, rights that
+cannot be restricted under applicable law, or permissions already granted
+under a separate license or agreement.
+
+To the extent permitted by applicable law, this prerelease is provided
+"as is", without warranties of any kind, including merchantability,
+fitness for a particular purpose, and noninfringement. The copyright
+holder is not liable for claims, losses, or damages arising from the
+software or its use.
+
+Official Beta and Release distributions are available under separate
+terms. This notice governs the evaluation copy supplied with it.

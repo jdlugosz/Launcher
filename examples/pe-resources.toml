@@ -1,0 +1,24 @@
+# Development examples for visual sign-off. Build the tests first so the
+# project-owned PNG fixture is available. Adobe and the archived Zoom path
+# below refer to John's chosen examples; edit those paths on another computer.
+schema_version = 1
+
+[paths]
+Fixture = '..\build\windows-x64\Release\LauncherResourceFixture.dll'
+Adobe = 'C:\Program Files\Adobe\Adobe InDesign 2026\dvaui.dll'
+Zoom = 'I:\Users\John\AppData\Roaming\Zoom\bin\zWinRes.dll'
+
+[grid]
+columns = 3
+icon_size_dip = 64
+
+[[tabs]]
+name = "PE resource examples"
+color = "#F3C982"
+items = [
+    { label = "Windows Bluetooth device", icon = { file = '%SystemRoot%\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\BatteryWidgetProvider.dll', type = 10, name = 'BATTERY_EXTENDED_DEVICEBLUETOOTH_SVG', language = 1033 } },
+    { label = "Windows authentication artwork", icon = { file = '%SystemRoot%\System32\en-US\webauthn.dll.mui', type = 23, id = 96, language = 1033 } },
+    { label = "Adobe magnifying glass", icon = { file = '$Adobe', type = 'SVG', name = 'S_SEARCHMAGNIFY_WI_N_AT_2X', language = 0 } },
+    { label = "Zoom meeting", icon = { file = '$Zoom', type = 'ZPIMGRES', name = 'HOME_MEETING.SVG', language = 0 } },
+    { label = "PNG: red left, blue lower right, translucent green upper right", icon = { file = '$Fixture', type = 301, id = 7, language = 0 } },
+]

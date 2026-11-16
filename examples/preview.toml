@@ -1,0 +1,65 @@
+# Portable PNG illustration sample: built-in Windows stock icons, descenders in every title.
+schema_version = 1
+colors = "light"
+
+[dock]
+edge = "left"
+display = "primary"
+auto_hide = true
+suppress_fullscreen = true
+
+[grid]
+columns = 7
+rows = 2
+icon_size_dip = 38.4
+icon_spacing_px = 8
+
+[appearance]
+text_size_pt = 9
+thickness = 2.4
+
+[[tabs]]
+name = "Playing music"
+color = "salmon"
+items = [
+    { label = "Computer", icon = "stock:computer" },
+    { label = "Folders", icon = "stock:folder" },
+    { label = "Document", icon = "stock:document" },
+    { label = "World", icon = "stock:world" },
+    { label = "Search", icon = "stock:find" },
+    { label = "Settings", icon = "stock:settings" },
+    { label = "Shield", icon = "stock:shield" },
+    { label = "Recycle", icon = "stock:recycle" },
+    { label = "Information", icon = "stock:information" },
+    { label = "Archive", icon = "stock:folder" },
+    { label = "Reference", icon = "stock:document" },
+    { label = "Computer", icon = "stock:computer" },
+]
+
+[[tabs]]
+name = "Projects and drawings"
+color = "orange"
+items = [
+    { icon = "stock:folder" }, { icon = "stock:document" }, { icon = "stock:find" },
+    { icon = "stock:folder" }, { icon = "stock:document" }, { icon = "stock:information" },
+]
+
+[[tabs]]
+name = "Typography"
+color = "cyan"
+items = [{ icon = "stock:world" }]
+
+[[tabs]]
+name = "Quick jumps"
+color = "green"
+items = [{ icon = "stock:settings" }]
+
+[[tabs]]
+name = "Sync queue"
+color = "violet"
+items = [{ icon = "stock:folder" }]
+
+[[tabs]]
+name = "Images"
+color = "yellow"
+items = [{ icon = "stock:information" }]

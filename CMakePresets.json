@@ -1,0 +1,139 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 25,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "windows-x64",
+      "displayName": "Windows x64 / MSVC / Ninja",
+      "generator": "Ninja Multi-Config",
+      "architecture": { "value": "x64", "strategy": "external" },
+      "binaryDir": "${sourceDir}/build/windows-x64",
+      "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+      "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "cl.exe",
+        "CMAKE_CONFIGURATION_TYPES": "Debug;Release;RelWithDebInfo",
+        "CMAKE_DEFAULT_BUILD_TYPE": "Release",
+        "VCPKG_TARGET_TRIPLET": "x64-windows-static",
+        "VCPKG_HOST_TRIPLET": "x64-windows-static",
+        "VCPKG_INSTALLED_DIR": "${sourceDir}/build/windows-x64/vcpkg_installed",
+        "VCPKG_EXECUTABLE": "$env{VCPKG_ROOT}/vcpkg.exe",
+        "VCPKG_MANIFEST_FEATURES": "tests",
+        "LAUNCHER_USE_STD_MODULE": "ON",
+        "BUILD_TESTING": "ON"
+      }
+    },
+    {
+      "name": "windows-x64-version-tests",
+      "displayName": "Windows x64 / isolated version scenarios",
+      "inherits": "windows-x64",
+      "binaryDir": "${sourceDir}/build/windows-x64-version-tests",
+      "cacheVariables": {
+        "CMAKE_CONFIGURATION_TYPES": "Release",
+        "LAUNCHER_VERSION_TEST_HOOKS": "ON",
+        "LAUNCHER_BUILD_INSTRUMENTATION": "version-scenarios"
+      }
+    },
+    {
+      "name": "windows-x64-headers",
+      "displayName": "Windows x64 / MSVC / standard headers",
+      "inherits": "windows-x64",
+      "binaryDir": "${sourceDir}/build/windows-x64-headers",
+      "cacheVariables": {
+        "LAUNCHER_USE_STD_MODULE": "OFF"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "release-version-tests",
+      "configurePreset": "windows-x64-version-tests",
+      "configuration": "Release"
+    },
+    {
+      "name": "debug",
+      "configurePreset": "windows-x64",
+      "configuration": "Debug"
+    },
+    {
+      "name": "release",
+      "configurePreset": "windows-x64",
+      "configuration": "Release"
+    },
+    {
+      "name": "relwithdebinfo",
+      "configurePreset": "windows-x64",
+      "configuration": "RelWithDebInfo"
+    },
+    {
+      "name": "debug-headers",
+      "configurePreset": "windows-x64-headers",
+      "configuration": "Debug"
+    },
+    {
+      "name": "release-headers",
+      "configurePreset": "windows-x64-headers",
+      "configuration": "Release"
+    },
+    {
+      "name": "relwithdebinfo-headers",
+      "configurePreset": "windows-x64-headers",
+      "configuration": "RelWithDebInfo"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "release-version-tests",
+      "configurePreset": "windows-x64-version-tests",
+      "configuration": "Release",
+      "filter": { "include": { "name": "^Launcher\\.VersionScenario\\." } },
+      "output": { "outputOnFailure": true },
+      "execution": { "noTestsAction": "error" }
+    },
+    {
+      "name": "debug",
+      "configurePreset": "windows-x64",
+      "configuration": "Debug",
+      "output": { "outputOnFailure": true },
+      "execution": { "noTestsAction": "error" }
+    },
+    {
+      "name": "release",
+      "configurePreset": "windows-x64",
+      "configuration": "Release",
+      "output": { "outputOnFailure": true },
+      "execution": { "noTestsAction": "error" }
+    },
+    {
+      "name": "relwithdebinfo",
+      "configurePreset": "windows-x64",
+      "configuration": "RelWithDebInfo",
+      "output": { "outputOnFailure": true },
+      "execution": { "noTestsAction": "error" }
+    },
+    {
+      "name": "debug-headers",
+      "configurePreset": "windows-x64-headers",
+      "configuration": "Debug",
+      "output": { "outputOnFailure": true },
+      "execution": { "noTestsAction": "error" }
+    },
+    {
+      "name": "release-headers",
+      "configurePreset": "windows-x64-headers",
+      "configuration": "Release",
+      "output": { "outputOnFailure": true },
+      "execution": { "noTestsAction": "error" }
+    },
+    {
+      "name": "relwithdebinfo-headers",
+      "configurePreset": "windows-x64-headers",
+      "configuration": "RelWithDebInfo",
+      "output": { "outputOnFailure": true },
+      "execution": { "noTestsAction": "error" }
+    }
+  ]
+}

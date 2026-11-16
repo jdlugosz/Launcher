@@ -1,0 +1,31 @@
+schema_version = 1
+
+[dock]
+edge = "left"
+display = "primary"
+auto_hide = true
+suppress_fullscreen = true
+
+[grid]
+columns = 3
+rows = "auto"
+icon_size_dip = "desktop"
+icon_spacing_px = 8
+
+[[tabs]]
+name = "Vertical order"
+short_name = "Order"
+color = "salmon"
+items = [
+    { label = "First - Computer", icon = { stock = "computer" } },
+    { label = "Second - Folder", icon = { stock = "folder" } },
+    { label = "Third - Document", icon = { stock = "document" } },
+    { kind = "break" },
+    { label = "Partial row - Audio", icon = { stock = "audio" } },
+    { kind = "spacer" },
+]
+
+[[tabs]]
+name = "Empty"
+color = "orange"
+items = []

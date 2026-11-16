@@ -1,0 +1,17 @@
+schema_version = 1
+
+[grid]
+columns = 3
+icon_size_dip = 72
+
+[[tabs]]
+name = "Icon sources"
+color = "#F3C982"
+items = [
+    { label = "Stock folder", icon = { stock = "folder" } },
+    { label = "SVG filename", icon = 'icons\vector-gradient.svg' },
+    { label = "SVG file table", icon = { file = 'icons\vector-wide.svg' } },
+    { label = "Shell32 index 0", icon = { file = '%SystemRoot%\System32\SHELL32.dll', index = 0 } },
+    { label = "Shell32 ID 3", icon = { file = '%SystemRoot%\System32\SHELL32.dll', id = 3 } },
+    { label = "Shell32 ID 4", icon = { file = '%SystemRoot%\System32\SHELL32.dll', id = 4 } },
+]

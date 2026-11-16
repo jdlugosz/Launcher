@@ -1,0 +1,9 @@
+{
+    "scopeName": "launcher-toml.pragma.injection",
+    "injectionSelector": "L:source.launcher-toml",
+    "patterns": [{
+        "name": "comment.line.percentage.pragma.launcher-toml",
+        "match": "^(?:\\x{FEFF})?(%)(?=\\S)[^\\r\\n]*",
+        "captures": { "1": { "name": "punctuation.definition.comment.launcher-toml" } }
+    }]
+}

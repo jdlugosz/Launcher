@@ -1,0 +1,13 @@
+Launcher licensing
+
+Copyright (c) 2026 John Długosz.
+
+The source published in this public repository is offered under the
+Długosz Software Community License in licenses/Release.txt. Official
+Launcher Beta and Release distributions use the same license.
+
+Prerelease and Special binary distributions use the evaluation terms in
+licenses/Prerelease.txt. Each binary distribution includes its applicable
+terms as LICENSE.txt.
+
+Third-party components retain their own licenses. See THIRD-PARTY-NOTICES.txt.

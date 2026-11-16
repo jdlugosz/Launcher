@@ -1,0 +1,3 @@
+[submodule "vendor/JMDlib.Cpp"]
+	path = vendor/JMDlib.Cpp
+	url = ../JMDlib.Cpp.git

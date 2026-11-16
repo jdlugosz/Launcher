@@ -1,0 +1,17 @@
+{
+    "terminal.integrated.profiles.windows": {
+        "Launcher x64 PowerShell": {
+            "path": "${env:windir}\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "args": [
+                "-NoLogo",
+                "-NoExit",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-Command",
+                ". '${workspaceFolder}\\tools\\enter-x64-dev.ps1'"
+            ]
+        }
+    },
+    "terminal.integrated.defaultProfile.windows": "Launcher x64 PowerShell",
+    "terminal.integrated.cwd": "${workspaceFolder}/build/windows-x64"
+}

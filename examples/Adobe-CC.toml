@@ -1,0 +1,54 @@
+# Standalone Adobe CC test configuration. Your AppData configuration is preserved.
+# Copy only the [[tabs]] section into your live Launcher.toml to add this page.
+# Main clicks choose newest including Beta; Installed versions offers all.
+# Add include_beta = false to an item only when ordinary clicks should be stable-only.
+schema_version = 1
+
+[dock]
+edge = "left"
+display = "primary"
+auto_hide = true
+hover_delay_ms = 180
+hide_delay_ms = 350
+suppress_fullscreen = true
+position = 0.5
+
+[grid]
+columns = 6
+rows = "auto"
+flow = "row-major"
+icon_size_dip = "desktop"
+icon_spacing_px = 8
+
+[appearance]
+font_family = "Segoe UI Variable"
+font_weight = 600
+text_size_pt = 9
+tooltip_delay_ms = 700
+
+[[tabs]]
+name = "Adobe Creative Cloud"
+short_name = "Adobe CC"
+color = "red"
+# Targets are product families, without a year or installation path.
+# Omit icon to inherit the selected installation's own application icon.
+items = [
+    { kind = "adobeCC", target = "Adobe After Effects", label = "After Effects" },
+    { kind = "adobeCC", target = "Adobe Audition", label = "Audition" },
+    { kind = "adobeCC", target = "Adobe Bridge", label = "Bridge" },
+    { kind = "adobeCC", target = "Adobe Illustrator", label = "Illustrator" },
+    { kind = "adobeCC", target = "Adobe InDesign", label = "InDesign" },
+    { kind = "adobeCC", target = "Adobe Lightroom Classic", label = "Lightroom Classic" },
+    { kind = "adobeCC", target = "Adobe Media Encoder", label = "Media Encoder" },
+    { kind = "adobeCC", target = "Adobe Photoshop", label = "Photoshop" },
+    { kind = "adobeCC", target = "Adobe Premiere", label = "Premiere" },
+    { kind = "adobeCC", target = "Adobe Acrobat", label = "Acrobat" },
+    { kind = "adobeCC", target = "Creative Cloud Desktop", label = "Creative Cloud" },
+]
+
+# Optional settings stay attached to each selected version. For example:
+# { kind = "adobeCC", target = "Adobe Audition", arguments = '"D:\Audio Work\sample.wav"', working_directory = 'D:\Audio Work', show = "normal" },
+# Additional search locations supplement Program Files and registry-derived roots:
+# { kind = "adobeCC", target = "Photoshop", root_path = ['C:\Creative Apps', 'D:\Creative Apps'] },
+# Or match a main executable directly when product-name discovery is insufficient:
+# { kind = "adobeCC", target = "Dreamweaver*.exe", root_path = 'D:\Creative Apps' },

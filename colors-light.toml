@@ -1,0 +1,204 @@
+# Select this set with colors = "light" at the top of Launcher.toml.
+# The first matching source wins: beside config (outside AppData), AppData, resource.
+# Stops are literal sRGB colors; prism page shading uses this oblique ramp.
+# The active tab normally keeps page.gradient[0]; tab.gradient shades inactive tabs.
+# Inactive tab colors are independent of the active tab and page.
+# tab.hover colors a hovered tab; page.hover colors a hovered launchable cell.
+# Edit the middle/far hues freely. Restart Launcher to reload this file.
+
+[colors.salmon]
+tab.gradient = [{ at = 0, color = "#FFD0C8" }, { at = 1, color = "#FFD0C8" }]
+tab.hover = "#F6A17C"
+page.gradient = [
+    { at = 0, color = "#FFD0C8" },
+    { at = 0.5, color = "#FFBCA7" },
+    { at = 1, color = "#F6A17C" },
+]
+page.hover = "#784636"
+outline = "#B86C53"
+
+[colors.orange]
+tab.gradient = [{ at = 0, color = "#FFE0B7" }, { at = 1, color = "#FFE0B7" }]
+tab.hover = "#FFB75D"
+page.gradient = [
+    { at = 0, color = "#FFE0B7" },
+    { at = 0.5, color = "#FFD18B" },
+    { at = 1, color = "#FFB75D" },
+]
+page.hover = "#774F25"
+outline = "#B77A39"
+
+[colors.yellow]
+tab.gradient = [{ at = 0, color = "#FFF8C5" }, { at = 1, color = "#FFF8C5" }]
+tab.hover = "#F9D65B"
+page.gradient = [
+    { at = 0, color = "#FFF8C5" },
+    { at = 0.5, color = "#FFE999" },
+    { at = 1, color = "#F9D65B" },
+]
+page.hover = "#756424"
+outline = "#B49A37"
+
+[colors.green]
+tab.gradient = [{ at = 0, color = "#D3EDD8" }, { at = 1, color = "#D3EDD8" }]
+tab.hover = "#92D493"
+page.gradient = [
+    { at = 0, color = "#D3EDD8" },
+    { at = 0.5, color = "#B8E6B2" },
+    { at = 1, color = "#92D493" },
+]
+page.hover = "#395A37"
+outline = "#578A54"
+
+[colors.red]
+tab.gradient = [{ at = 0, color = "#FFE0D9" }, { at = 1, color = "#FFE0D9" }]
+tab.hover = "#F5A283"
+page.gradient = [
+    { at = 0, color = "#FFE0D9" },
+    { at = 0.5, color = "#FFBEAA" },
+    { at = 1, color = "#F5A283" },
+]
+page.hover = "#723E32"
+outline = "#AF604D"
+
+[colors.rose]
+tab.gradient = [{ at = 0, color = "#FFE0ED" }, { at = 1, color = "#FFE0ED" }]
+tab.hover = "#EB9ACD"
+page.gradient = [
+    { at = 0, color = "#FFE0ED" },
+    { at = 0.5, color = "#F9BDD9" },
+    { at = 1, color = "#EB9ACD" },
+]
+page.hover = "#6E405C"
+outline = "#A9638D"
+
+[colors.teal]
+tab.gradient = [{ at = 0, color = "#DAF8EB" }, { at = 1, color = "#DAF8EB" }]
+tab.hover = "#83D3B4"
+page.gradient = [
+    { at = 0, color = "#DAF8EB" },
+    { at = 0.5, color = "#AFE9CF" },
+    { at = 1, color = "#83D3B4" },
+]
+page.hover = "#336051"
+outline = "#4E947D"
+
+[colors.cyan]
+tab.gradient = [{ at = 0, color = "#DCF8FF" }, { at = 1, color = "#DCF8FF" }]
+tab.hover = "#83D8D6"
+page.gradient = [
+    { at = 0, color = "#DCF8FF" },
+    { at = 0.5, color = "#ADEBEE" },
+    { at = 1, color = "#83D8D6" },
+]
+page.hover = "#326064"
+outline = "#4D949A"
+
+[colors.blue]
+tab.gradient = [{ at = 0, color = "#E0EEFF" }, { at = 1, color = "#E0EEFF" }]
+tab.hover = "#9BC4F0"
+page.gradient = [
+    { at = 0, color = "#E0EEFF" },
+    { at = 0.5, color = "#BDDBFB" },
+    { at = 1, color = "#9BC4F0" },
+]
+page.hover = "#3B5372"
+outline = "#5B80AF"
+
+[colors.indigo]
+tab.gradient = [{ at = 0, color = "#EAE8FF" }, { at = 1, color = "#EAE8FF" }]
+tab.hover = "#B8A7E7"
+page.gradient = [
+    { at = 0, color = "#EAE8FF" },
+    { at = 0.5, color = "#D1C6F4" },
+    { at = 1, color = "#B8A7E7" },
+]
+page.hover = "#4F456D"
+outline = "#796AA8"
+
+[colors.violet]
+tab.gradient = [{ at = 0, color = "#F1E2FF" }, { at = 1, color = "#F1E2FF" }]
+tab.hover = "#D7A7E9"
+page.gradient = [
+    { at = 0, color = "#F1E2FF" },
+    { at = 0.5, color = "#E7C5F4" },
+    { at = 1, color = "#D7A7E9" },
+]
+page.hover = "#634472"
+outline = "#9868AF"
+
+[colors.lavender]
+tab.gradient = [{ at = 0, color = "#F5E7FF" }, { at = 1, color = "#F5E7FF" }]
+tab.hover = "#DDB2E9"
+page.gradient = [
+    { at = 0, color = "#F5E7FF" },
+    { at = 0.5, color = "#E9C9F3" },
+    { at = 1, color = "#DDB2E9" },
+]
+page.hover = "#675072"
+outline = "#9E7BAF"
+
+# Additional names from extra_colors remain available when selecting this set.
+
+[colors.copper]
+tab.gradient = [{ at = 0, color = "#FFE0C1" }, { at = 1, color = "#FFE0C1" }]
+tab.hover = "#EAA15F"
+page.gradient = [{ at = 0, color = "#FFE0C1" }, { at = 0.5, color = "#F4C18D" }, { at = 1, color = "#EAA15F" }]
+page.hover = "#53341C"
+outline = "#80502B"
+
+[colors.purple]
+tab.gradient = [{ at = 0, color = "#EEDBFF" }, { at = 1, color = "#EEDBFF" }]
+tab.hover = "#C493E3"
+page.gradient = [{ at = 0, color = "#EEDBFF" }, { at = 0.5, color = "#DBB9F0" }, { at = 1, color = "#C493E3" }]
+page.hover = "#492C65"
+outline = "#70439C"
+
+[colors.plum]
+tab.gradient = [{ at = 0, color = "#F5DDED" }, { at = 1, color = "#F5DDED" }]
+tab.hover = "#D799BC"
+page.gradient = [{ at = 0, color = "#F5DDED" }, { at = 0.5, color = "#E7BDD5" }, { at = 1, color = "#D799BC" }]
+page.hover = "#55344D"
+outline = "#835077"
+
+[colors.gold]
+tab.gradient = [{ at = 0, color = "#FFF0C5" }, { at = 1, color = "#FFF0C5" }]
+tab.hover = "#E8BE60"
+page.gradient = [{ at = 0, color = "#FFF0C5" }, { at = 0.5, color = "#F5DB9A" }, { at = 1, color = "#E8BE60" }]
+page.hover = "#624B1B"
+outline = "#97742A"
+
+[colors.lime]
+tab.gradient = [{ at = 0, color = "#F1F4CF" }, { at = 1, color = "#F1F4CF" }]
+tab.hover = "#BDDA78"
+page.gradient = [{ at = 0, color = "#F1F4CF" }, { at = 0.5, color = "#DAE7A3" }, { at = 1, color = "#BDDA78" }]
+page.hover = "#505C24"
+outline = "#7B8E37"
+
+[colors.emerald]
+tab.gradient = [{ at = 0, color = "#D6F0E2" }, { at = 1, color = "#D6F0E2" }]
+tab.hover = "#87CCA6"
+page.gradient = [{ at = 0, color = "#D6F0E2" }, { at = 0.5, color = "#B1DFC5" }, { at = 1, color = "#87CCA6" }]
+page.hover = "#285340"
+outline = "#3E8062"
+
+[colors.turquoise]
+tab.gradient = [{ at = 0, color = "#D8F4ED" }, { at = 1, color = "#D8F4ED" }]
+tab.hover = "#8BD4C4"
+page.gradient = [{ at = 0, color = "#D8F4ED" }, { at = 0.5, color = "#B4E7DC" }, { at = 1, color = "#8BD4C4" }]
+page.hover = "#285551"
+outline = "#3D827D"
+
+[colors.silver]
+tab.gradient = [{ at = 0, color = "#F0F1F4" }, { at = 1, color = "#F0F1F4" }]
+tab.hover = "#C8CDD5"
+page.gradient = [{ at = 0, color = "#F0F1F4" }, { at = 0.5, color = "#DEE0E5" }, { at = 1, color = "#C8CDD5" }]
+page.hover = "#484B50"
+outline = "#6F737B"
+
+[colors.slate]
+tab.gradient = [{ at = 0, color = "#DDE6EC" }, { at = 1, color = "#DDE6EC" }]
+tab.hover = "#A6BDC9"
+page.gradient = [{ at = 0, color = "#DDE6EC" }, { at = 0.5, color = "#C5D4DD" }, { at = 1, color = "#A6BDC9" }]
+page.hover = "#3D4851"
+outline = "#5E6F7C"

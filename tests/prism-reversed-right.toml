@@ -1,0 +1,43 @@
+schema_version = 1
+colors = "light"
+
+[dock]
+edge = "right"
+auto_hide = true
+
+[grid]
+columns = 7
+rows = 2
+icon_size_dip = 38.4
+
+[appearance]
+text_size_pt = 9
+thickness = 2.4
+reverse_thickness = true
+tab_text_direction = "bottom-to-top"
+
+[[tabs]]
+name = "Playing music"
+color = "salmon"
+items = [{icon = { stock = "folder" }}, {icon = { stock = "world" }}]
+
+[[tabs]]
+name = "Projects and drawings with a deliberately long title that cannot fit on the whole edge"
+color = "orange"
+items = [{icon = { stock = "document" }}]
+
+[[tabs]]
+name = "Typography"
+color = "cyan"
+
+[[tabs]]
+name = "Quick jumps"
+color = "green"
+
+[[tabs]]
+name = "Sync queue"
+color = "violet"
+
+[[tabs]]
+name = "Images"
+color = "yellow"

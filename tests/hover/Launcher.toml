@@ -1,0 +1,23 @@
+colors = "hover"
+
+[dock]
+edge = "top"
+auto_hide = true
+[grid]
+columns = 4
+icon_size_dip = 64
+icon_spacing_px = 6
+[[tabs]]
+name = "Hover examples"
+color = "orange"
+items = [
+    { label = "Opaque square", target = "notepad.exe", icon = '../icons/opaque-square.svg' },
+    { label = "Decoration", icon = { stock = "information" } },
+    { kind = "spacer" },
+    { label = "Folder", target = ".", icon = { stock = "folder" } },
+    { label = "Missing document", target = 'Missing\Example.txt', icon = { stock = "document" } },
+]
+[[tabs]]
+name = "Another page"
+color = "blue"
+items = [{ target = "notepad.exe" }]

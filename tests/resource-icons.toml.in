@@ -1,0 +1,17 @@
+schema_version = 1
+[grid]
+columns = 3
+icon_size_dip = 48
+[[tabs]]
+name = "Resource fixtures"
+color = "#F3C982"
+items = [
+    { label = "SVG", icon = { file = '$<TARGET_FILE:LauncherResourceFixture>', type = 'SVG', name = 'ARTWORK', language = 0 } },
+    { label = "PNG under numeric type", icon = { file = '$<TARGET_FILE:LauncherResourceFixture>', type = 301, id = 7 } },
+    { label = "SVG with comments", icon = { file = '$<TARGET_FILE:LauncherResourceFixture>', type = 10, name = 'COMMENTS' } },
+    { label = "PNG under SVG type", icon = { file = '$<TARGET_FILE:LauncherResourceFixture>', type = 'SVG', name = 'PNG_IN_SVG' } },
+    { label = "Other type, yellow", icon = { file = '$<TARGET_FILE:LauncherResourceFixture>', type = 'OTHER', name = 'ARTWORK' } },
+    { label = "Neutral, red/blue", icon = { file = '$<TARGET_FILE:LauncherResourceFixture>', type = 10, name = 'LOCALIZED', language = 0 } },
+    { label = "English, yellow", icon = { file = '$<TARGET_FILE:LauncherResourceFixture>', type = 10, name = 'LOCALIZED', language = 1033 } },
+    { label = "Unicode resource", icon = { file = '$<TARGET_FILE:LauncherResourceFixture>', type = '图片', name = '图标' } },
+]

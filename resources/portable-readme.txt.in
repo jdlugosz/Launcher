@@ -1,0 +1,90 @@
+Launcher @LAUNCHER_DISPLAY_VERSION@ - Windows 10 and 11, x64
+@LAUNCHER_RELEASE_STATUS@
+
+@LAUNCHER_LICENSE_NOTICE@
+Included third-party components retain their own licenses; see
+THIRD-PARTY-NOTICES.txt.
+
+Extract all files. Beside the Launcher-R@LAUNCHER_DISPLAY_VERSION@-windows-x64
+folder are Install.cmd for setup and Portable.txt for extract-and-run directions.
+You can also run Launcher Setup.exe from inside that folder.
+For portable use, open that versioned folder and run
+Launcher-R@LAUNCHER_DISPLAY_VERSION@.exe. Keep that folder's contents together.
+Setup preserves your settings
+and offers optional sign-in startup; see docs\Installer.html. A fresh installation
+offers Program Files or a personal installation without administrator approval.
+Hover over the tabs to reveal the panel. Click a tab to switch pages, and click
+an icon with a configured target to launch it. Right-click a tab or blank area
+for Edit configuration, Open configuration folder, Adjust sizes, About, and Quit.
+About shows the executable's version, build time, commit ID and build type;
+Copy details copies these for a report.
+
+Portable use first looks for Launcher.toml beside the running EXE, then in
+%LOCALAPPDATA%\Długosz\Launcher. Installed use looks in that AppData folder.
+Runtime adjustments stay beside the selected configuration with its basename.
+The bundled Launcher.default.toml seeds a missing portable configuration.
+Setup uses Launcher.installed.default.toml to prepare a missing AppData
+Launcher.toml after handling any portable profile, and seeds its personal color
+demo as Demos\demo_many_colors.toml before launch and its icon under Icons.
+It preserves existing demo edits and
+runtime settings. Upgrades update exact stock guide/demo links in an existing
+Launcher.toml with a backup; unrelated text and custom entries are preserved.
+If an installed copy later cannot find it, Launcher shows a modal creation/exit
+prompt. Portable first use creates its missing adjacent configuration quietly.
+Fresh setup can transfer root TOMLs and files under Icon or Icons into AppData.
+Upgrade setup warns about differing trial files and does not copy them. See
+docs\Installer.html for transfer details and existing-profile protection.
+
+For a separate portable trial when AppData already holds another profile, copy
+Launcher.default.toml to Launcher.toml beside the versioned EXE before starting.
+Otherwise the AppData profile is used when no adjacent Launcher.toml exists.
+Edit Launcher.toml, then choose Restart. Keep relative icon files beneath Icon
+or Icons so setup can transfer them coherently on a fresh installation.
+For repair, retained-version selection and removal, see docs\Installer.html.
+Installed copies appear as Długosz Launcher in Programs and Features / Installed
+apps. Choose Uninstall there, or use the included Uninstall.cmd with the exact
+installation directory. Portable use creates no Windows uninstall entry.
+
+The starter tabs open the included Launcher tools and guides, standard Windows
+apps, and the shipped examples. Open docs\Launcher.html for the main guide.
+HTML guides open in your browser and work offline. The main guide links to
+the detailed configuration, launch targets, and appearance references. Open
+the editable TOML examples in Notepad.
+
+Basic and extra colors are embedded in the running EXE as basic_colors.toml and
+extra_colors.toml. Those fixed files and colors-light.toml/colors-dark.toml are
+also supplied in the examples subdirectory for browsing and copying. That
+directory is not searched at runtime. Copy a fixed file into your
+settings folder under its original name to load it automatically. Or copy any
+supplied file as colors-custom.toml, edit it, and select colors = "custom".
+Only selectable sets use colors-<name>.toml, such as colors-light.toml.
+Later files replace matching names; partial = true changes only supplied fields.
+Color names use ASCII, normalized to lowercase. Restart to apply palette edits.
+Use Try the many-colors demo on the Examples tab to see all 21 colors on a wide top-edge
+dock. Its demo_many_colors.toml selects light; change colors to "dark" to compare.
+
+An item can be written as: { label = "Notepad", target = "notepad.exe" }
+Omit icon to use the target's icon, or specify an icon override. GUI and console
+programs, shortcuts, documents, folders, and links use Windows Shell launching.
+Console programs are visible by default. Icon-only items remain placeholders.
+Quit and restart Launcher to apply edits to the configuration.
+
+LauncherDrop.exe is a small companion for building configuration entries. Drop
+programs, documents, folders, or shortcuts onto its top zone, repeat as needed,
+then Copy All. Open Launcher.toml using its dedicated Notepad button or the
+Other editors dropdown below it, and paste the entries
+inside the desired tab's items = [ ... ] list. The helper generates text only;
+save your edits in your editor, then quit and restart Launcher to apply them.
+
+LauncherSvgExtractor.exe is the included companion for finding SVG artwork in
+programs and installation folders. Run it when needed, choose a source and a
+results folder, then browse its gallery. Keep copies an image into your personal
+Launcher Icons folder; put the saved filename in an item's icon field.
+It uses .NET Framework 4.6.2 or later. Setup installs it alongside Launcher;
+no separate installation is needed. See docs\SvgExtractor.html for instructions.
+
+Odd minor versions denote development after the preceding even release series.
+Even minor versions identify release series, including release candidates.
+
+Launcher downloads
+https://updates.dlugosz.enterprises/downloads/launcher/index.html

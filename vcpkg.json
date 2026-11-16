@@ -1,0 +1,19 @@
+{
+  "name": "launcher",
+  "version-semver": "1.1.0",
+  "description": "Native Windows tabbed launcher",
+  "builtin-baseline": "e456309491fd875487bf02b8a0dca76c1b1b00cc",
+  "dependencies": [
+    "tomlplusplus",
+    "lunasvg",
+    { "name": "plutovg", "features": ["font-face-cache"] }
+  ],
+  "features": {
+    "tests": {
+      "description": "Configuration and grid-layout unit tests",
+      "dependencies": [
+        "catch2"
+      ]
+    }
+  }
+}

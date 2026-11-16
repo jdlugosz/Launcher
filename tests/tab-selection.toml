@@ -1,0 +1,54 @@
+schema_version = 1
+
+[dock]
+edge = "top"
+display = "primary"
+auto_hide = true
+suppress_fullscreen = true
+
+[grid]
+columns = 3
+rows = "auto"
+icon_size_dip = "desktop"
+icon_spacing_px = 8
+
+[appearance]
+text_size_pt = 9
+tooltip_delay_ms = 700
+
+[[tabs]]
+name = "General utilities"
+short_name = "Tools"
+color = "#EE9696"
+items = [
+    { label = "Utility Alpha", icon = { stock = "folder" }, target = "alpha", handler = "smoke-recorder" },
+    { label = "Utility Beta", icon = { stock = "folder" } },
+    { kind = "spacer" },
+    { label = "Computer", icon = { stock = "computer" } },
+]
+
+[[tabs]]
+name = "Documents and reference material"
+short_name = "Docs"
+color = "#F3CE82"
+items = [
+    { label = "资料 & References", icon = { stock = "document" }, target = "reference", handler = "smoke-recorder" },
+    { kind = "spacer" },
+    { kind = "break" },
+    { label = "Archive", icon = { stock = "folder" } },
+]
+
+[[tabs]]
+name = "An empty page"
+short_name = "Empty"
+color = "#DAE67B"
+items = []
+
+[[tabs]]
+name = "Links and online resources"
+short_name = "Links"
+color = "#BED878"
+items = [
+    { label = "Home", icon = { stock = "world" }, target = "home", handler = "smoke-recorder" },
+    { label = "Search", icon = { stock = "find" } },
+]

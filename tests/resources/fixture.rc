@@ -1,0 +1,17 @@
+#pragma code_page(65001)
+#include <windows.h>
+
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+ARTWORK SVG "artwork.svg"
+ARTWORK OTHER "alternate.svg"
+COMMENTS RCDATA "commented.svg"
+BLOB RCDATA "binary.bin"
+BROKEN RCDATA "broken.svg"
+PNG_IN_SVG SVG "artwork.png"
+图标 图片 "artwork.png"
+7 301 "artwork.png"
+LOCALIZED RCDATA "artwork.svg"
+
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+LOCALIZED RCDATA "alternate.svg"
+ENGLISH_ONLY RCDATA "alternate.svg"

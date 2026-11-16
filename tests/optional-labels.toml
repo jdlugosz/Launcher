@@ -1,0 +1,45 @@
+schema_version = 1
+
+[dock]
+edge = "top"
+display = "primary"
+auto_hide = true
+suppress_fullscreen = true
+
+[grid]
+columns = 3
+rows = "auto"
+icon_size_dip = "desktop"
+icon_spacing_px = 8
+
+[appearance]
+text_size_pt = 9
+tooltip_delay_ms = 700
+
+# CTest supplies the current build's probe directory and full executable path.
+# The probe has FileDescription = "Launcher" and is never launched by this test.
+[[tabs]]
+name = "Optional item labels"
+short_name = "Labels"
+color = "salmon"
+items = [
+    { target = 'LauncherLaunchGuiProbe.exe', working_directory = '%LAUNCHER_LABEL_SMOKE_DIR%' },
+    { target = '%LAUNCHER_LABEL_SMOKE_EXE%' },
+    { target = 'LauncherLaunchGuiProbe.exe', working_directory = '%LAUNCHER_LABEL_SMOKE_DIR%', icon = { stock = 'folder' } },
+    { target = '%LAUNCHER_LABEL_SMOKE_EXE%', label = '' },
+    { icon = { stock = 'information' } },
+    { label = '显式标签 & 资料', target = '%LAUNCHER_LABEL_SMOKE_EXE%', icon = { stock = 'document' } },
+    { kind = 'adobeCC', target = 'Adobe After Effects', label = '' },
+    { kind = 'spacer' },
+]
+
+# Selecting this page must leave the native tooltip window entirely inactive.
+[[tabs]]
+name = "No item tooltips"
+short_name = "Blank"
+color = "blue"
+items = [
+    { label = '', icon = { stock = 'folder' } },
+    { icon = { stock = 'document' } },
+    { label = '', icon = { stock = 'information' } },
+]

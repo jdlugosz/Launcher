@@ -1,0 +1,27 @@
+# Deliberately taller than the display: the page fits, its thickness does not scale.
+schema_version = 1
+colors = "light"
+
+[dock]
+edge = "top"
+display = "primary"
+auto_hide = true
+
+[grid]
+columns = 4
+rows = 32
+icon_size_dip = 96
+icon_spacing_px = 8
+
+[appearance]
+thickness = 2.4
+
+[[tabs]]
+name = "Playing music"
+color = "salmon"
+items = [{ icon = { stock = "computer" } }]
+
+[[tabs]]
+name = "Typography and drawings"
+color = "green"
+items = [{ icon = { stock = "folder" } }]

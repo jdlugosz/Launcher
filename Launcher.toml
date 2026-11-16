@@ -1,0 +1,171 @@
+# A ready-to-use starter: Launcher tools and guides, Windows tools, and examples.
+# Copyable item examples follow the %STOP line at the end of the active settings.
+# Pragmas start with % in column one and are processed before TOML, even in strings.
+schema_version = 1
+# Fixed basic_colors.toml and extra_colors.toml load first. Optional: colors = "light" or ["dark", "custom"].
+# Relative color files follow the configuration's file-search policy.
+# Copy a supplied color file into your profile folder to customize it; partial overrides require partial = true.
+
+# Optional literal text prefixes for item target, icon, and arguments strings.
+# $EXE is built in: the running Launcher's directory, with no trailing separator.
+# Ordinary relative paths start beside this configuration file.
+# [paths]
+# Tools = 'C:\Tools'
+# Icons = 'D:\Launcher Icons'
+# NotesArgument = '"D:\Work Notes\Checklist.txt"'
+# Names are case-sensitive: ASCII letter/underscore, then letters/digits/underscores.
+# A leading $Name is replaced once; include any separator yourself.
+# In arguments, put a filename in double quotes: '"$EXE\docs\Launcher.md"'.
+# Values are not rescanned. In those three item fields, $$ gives a literal $;
+# other unescaped dollar uses are invalid/reserved. Other fields are unchanged.
+
+[dock]
+edge = "top" # choose "right", "top", "bottom", or "left".
+display = "primary" # Or a display name listed by the app, e.g. '\\.\DISPLAY2'.
+auto_hide = true
+hover_delay_ms = 180 # Integer milliseconds from 0 through 5000.
+hide_delay_ms = 350 # Integer milliseconds from 0 through 5000.
+reveal_duration_ms = 220 # Travel time, independent of the hover delay; 0 is immediate.
+# hide_duration_ms = 220 # Defaults to reveal_duration_ms; 0..5000 milliseconds.
+suppress_fullscreen = true
+position = 0.5 # Position along the usable edge: 0=start, 0.5=center, 1=end.
+
+[grid]
+# Integer from 1 through 128 or "auto". Automatic dimensions also stop at 128.
+# All tabs share the largest required grid.
+columns = 6
+rows = "auto"
+flow = "row-major" # Also "column-major".
+icon_size_dip = "desktop" # Sample desktop icons once at startup, or specify DIPs.
+icon_spacing_px = 8 # Integer physical pixels, 0..1024; shared gaps and panel margin.
+
+[appearance]
+font_family = "Segoe UI Variable" # Automatic optical sizing; Segoe UI fallback.
+font_weight = 600 # Semibold. Native DirectWrite weights range from 1 to 999.
+text_size_pt = 9 # Compact nominal tab label size in points; 9 pt = 12 DIPs.
+tooltip_delay_ms = 700 # Icon-label dwell, integer milliseconds from 0 through 5000.
+# thickness = 2.0 # Fractional DIPs, independent of icon/text scale; 0 is flat.
+# reverse_thickness = false # Show the opposite side wall, independently of text.
+# tab_text_direction = "auto" # Vertical edges: "top-to-bottom" or "bottom-to-top".
+# Legacy text_size_dip is accepted, but do not specify both text-size fields.
+
+# Optional [adjustments]: text_scale and icon_scale default to 1.0.
+# Interactive adjustments multiply these bases and are saved separately.
+# Interactive spacing is a separate absolute [grid].icon_spacing_px override.
+
+[[tabs]]
+name = "Launcher"
+short_name = "Launcher"
+color = "salmon"
+items = [
+    { label = "Launcher Drop: gather filenames", target = '$EXE\LauncherDrop.exe' },
+    { label = "SVG Extractor: find artwork", target = '$EXE\LauncherSvgExtractor.exe' },
+    { label = "Launcher guide", icon = { file = '%SystemRoot%\System32\imageres.dll', index = 14 }, target = '$EXE\docs\Launcher.html' },
+    { label = "Setup and maintenance guide", icon = { file = '%SystemRoot%\System32\imageres.dll', index = 14 }, target = '$EXE\docs\Installer.html' },
+    { label = "Configuration folder", icon = { stock = "folder" }, target = "." },
+    { label = "Program folder", icon = { stock = "folder" }, target = '$EXE' },
+]
+
+[[tabs]]
+name = "Windows"
+short_name = "Windows"
+color = "orange"
+items = [
+    { label = "Notepad", target = "notepad.exe" },
+    { label = "Calculator", target = "calc.exe" },
+    { label = "File Explorer", target = "explorer.exe" },
+    { label = "Character Map", target = "charmap.exe" },
+    { label = "Windows Settings", target = "ms-settings:" },
+    { label = "Recycle Bin", icon = { stock = "recycle" }, target = "shell:RecycleBinFolder" },
+]
+
+[[tabs]]
+name = "Examples"
+short_name = "Examples"
+color = "green"
+items = [
+    { label = "Try the many-colors demo", icon = '$EXE\resources\many-colors.svg', target = '$SELF', arguments = '"$EXE\examples\demo_many_colors.toml"' },
+    { label = "Example files and color definitions", icon = { stock = "folder" }, target = '$EXE\examples' },
+    { label = "Read the color demo configuration", icon = { file = '%SystemRoot%\System32\imageres.dll', index = 62 }, target = "notepad.exe", arguments = '"$EXE\examples\demo_many_colors.toml"' },
+    { label = "Launcher Drop guide", icon = { file = '%SystemRoot%\System32\imageres.dll', index = 14 }, target = '$EXE\docs\LauncherDrop.html' },
+    { label = "SVG Extractor guide", icon = { file = '%SystemRoot%\System32\imageres.dll', index = 14 }, target = '$EXE\docs\SvgExtractor.html' },
+    { label = "Basic color definitions", icon = { file = '%SystemRoot%\System32\imageres.dll', index = 62 }, target = "notepad.exe", arguments = '"$EXE\examples\basic_colors.toml"' },
+]
+
+%STOP ===========examples below
+
+# Launcher ignores this line's remainder and EVERYTHING below it, including
+# unfinished examples and ordinary prose. Keep the marker outside strings.
+# Copy an item line, including its comma, into a tab's items = [ ... ] ABOVE it.
+# Replace example paths with your own. Single quotes keep backslashes literal.
+# You can also copy a whole [[tabs]] section above the marker to add a new tab.
+
+[[tabs]]
+name = "Item examples"
+color = "orange"
+items = [
+    # Omit label and icon to infer both from the target.
+    { target = "notepad.exe" },
+    # An empty label suppresses the tooltip; an explicit label replaces it.
+    { label = "", target = "calc.exe" },
+    { label = "Character Map", target = "charmap.exe" },
+    { label = "File Explorer", target = "explorer.exe" },
+    { label = "My editor", target = 'C:\Tools\editor.exe' },
+
+    # Documents, folders, Shell locations and registered protocols use Shell dispatch.
+    # Relative paths start beside this configuration file; "." opens that folder.
+    { label = "Checklist", target = 'Documents\Checklist.txt' },
+    { label = "Home folder", target = '%USERPROFILE%' },
+    { label = "Configuration folder", target = "." },
+    # These documents are normally present on Windows or beside the default config.
+    { label = "Windows configuration", target = '%SystemRoot%\win.ini' },
+    { label = "Launcher configuration", target = 'Launcher.toml' },
+    { label = "Computer", target = "shell:MyComputerFolder" },
+    { label = "Settings", target = "ms-settings:" },
+    { label = "Website", target = "https://example.com" },
+
+    # Shortcuts preserve their customized icons and stored "Start in" directory.
+    { label = "My shortcut", target = 'Shortcuts\Example.lnk' },
+    # target is a filename, not a command line. arguments is a raw Windows command line.
+    { label = "Configuration in Notepad", target = "notepad.exe", arguments = '"Launcher.toml"' },
+    # working_directory may be relative or absolute. show: normal, hidden or minimized.
+    { label = "Console", target = "powershell.exe", arguments = "-NoProfile", working_directory = '%USERPROFILE%', show = "normal" },
+    # Extra right-click actions use canonical Windows Shell verb names.
+    { label = "Notepad with admin option", target = "notepad.exe", context_verbs = [{ label = "Run as administrator", verb = "runas" }] },
+
+    # An explicit icon overrides the target's icon. A stock icon uses a table.
+    # Stock names: application, folder, document, computer, world, find, shield,
+    # recycle, settings, information, drive, network, audio, image, video.
+    { label = "Documents", target = "shell:Personal", icon = { stock = "document" } },
+    # Image filenames may be strings or file tables. Relative paths start beside this TOML.
+    { label = "Custom icon", target = "notepad.exe", icon = 'Icons\Example.ico' },
+    { label = "PNG artwork", target = "notepad.exe", icon = { file = 'Icons\Example.png' } },
+    { label = "Vector artwork", target = "notepad.exe", icon = 'Icons\Example.svg' },
+    # Select an icon GROUP in an EXE/DLL: id is its numeric resource ID;
+    # index is its zero-based ordinal. Specify one selector, never both.
+    { label = "Resource ID", target = ".", icon = { file = '%SystemRoot%\System32\SHELL32.dll', id = 4 } },
+    { label = "Resource index", target = ".", icon = { file = '%SystemRoot%\System32\SHELL32.dll', index = 3 } },
+
+    # General PE artwork uses a resource type plus a name or numeric ID.
+    # Replace this generic file and resource name with those from your program.
+    { label = "Embedded SVG artwork", target = "notepad.exe", icon = { file = 'C:\Tools\Artwork.dll', type = 'SVG', name = 'LOGO' } },
+
+    # Without a target, an icon is a non-launching placeholder.
+    { label = "Placeholder", icon = { stock = "information" } },
+    # A spacer consumes one cell; a break begins the next row when partway across.
+    { kind = "spacer" },
+    { kind = "break" },
+    # Every item kind accepts flags = 0 (default). Bit 1 is reserved for future
+    # detailed icon-import logging; that logging is not implemented yet.
+
+    # Adobe CC resolves the newest installed version; omit beta versions if desired.
+    { kind = "adobeCC", target = "Photoshop", include_beta = false },
+
+    # Enable the [paths] definitions near the top before using these examples.
+    # A leading $Name is replaced once; add separators yourself.
+    { label = "Editor", target = '$Tools\editor.exe', icon = '$Icons\editor.ico' },
+    { label = "Notes", target = "notepad.exe", arguments = '$NotesArgument' },
+    # NotesArgument contains the quotes needed around its raw filename argument.
+    # A literal dollar in target, icon/file, or arguments is written as $$.
+    { label = "Budget", target = 'Documents\Budget $$2026.txt' },
+]

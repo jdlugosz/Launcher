@@ -1,0 +1,21 @@
+schema_version = 1
+
+[logging]
+file = "shift-target-smoke.log"
+
+[dock]
+edge = "top"
+auto_hide = true
+
+[grid]
+columns = 4
+rows = "auto"
+
+[[tabs]]
+name = "Alternate targets"
+items = [
+    { label = "Both", icon = { stock = "document" }, target = "normal", shift_target = "alternate-资料", handler = "smoke-recorder", arguments = "--shared" },
+    { label = "Normal only", icon = { stock = "folder" }, target = "normal-only", handler = "smoke-recorder" },
+    { label = "Alternate only", icon = { stock = "document" }, shift_target = "alternate-only", handler = "smoke-recorder" },
+    { label = "Neither", icon = { stock = "folder" } },
+]

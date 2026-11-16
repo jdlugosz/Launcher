@@ -1,0 +1,5 @@
+#pragma once
+
+#define IDR_PENDING_BLINDS_4 201
+#define IDR_PENDING_BLINDS_5 202
+#define IDR_PENDING_BLINDS_6 203

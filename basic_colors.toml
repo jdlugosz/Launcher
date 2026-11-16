@@ -1,0 +1,147 @@
+# Basic stock palettes, loaded before extra_colors and settings-selected sets.
+# These are also embedded in Launcher. Copy this file to AppData to customize it,
+# or copy it as colors-custom.toml and select colors = "custom" in Launcher.toml.
+
+[colors.salmon]
+tab.gradient = [
+    { at = 0, color = "#FFD0C8" },
+    { at = 0.45, color = "#F7B1A5" },
+    { at = 1, color = "#EC8D82" },
+]
+tab.hover = "#FFD0C8"
+page.gradient = [{ at = 0, color = "#EC8D82" }, { at = 1, color = "#F6BDA9" }]
+page.hover = "#7A423A"
+outline = "#BC6659"
+text = "#131313"
+
+[colors.orange]
+tab.gradient = [
+    { at = 0, color = "#FFE0B7" },
+    { at = 0.45, color = "#FFC592" },
+    { at = 1, color = "#EF9843" },
+]
+tab.hover = "#FFE0B7"
+page.gradient = [{ at = 0, color = "#EF9843" }, { at = 1, color = "#FFD078" }]
+page.hover = "#7A4B1D"
+outline = "#BB742C"
+text = "#131313"
+
+[colors.yellow]
+tab.gradient = [
+    { at = 0, color = "#FFF8C5" },
+    { at = 0.45, color = "#F9E58A" },
+    { at = 1, color = "#EBCD3C" },
+]
+tab.hover = "#FFF8C5"
+page.gradient = [{ at = 0, color = "#EBCD3C" }, { at = 1, color = "#F9EA89" }]
+page.hover = "#75692C"
+outline = "#B4A243"
+text = "#131313"
+
+[colors.green]
+tab.gradient = [
+    { at = 0, color = "#D3EDD8" },
+    { at = 0.45, color = "#A4D7AD" },
+    { at = 1, color = "#70BE78" },
+]
+tab.hover = "#D3EDD8"
+page.gradient = [{ at = 0, color = "#70BE78" }, { at = 1, color = "#A9D5B0" }]
+page.hover = "#355A39"
+outline = "#518A58"
+text = "#131313"
+
+[colors.red]
+tab.gradient = [
+    { at = 0, color = "#FFEAE8" },
+    { at = 0.45, color = "#F5B4AD" },
+    { at = 1, color = "#E78C85" },
+]
+tab.hover = "#FFEAE8"
+page.gradient = [{ at = 0, color = "#E78C85" }, { at = 1, color = "#F8BBB0" }]
+page.hover = "#6E3834"
+outline = "#A95650"
+text = "#131313"
+
+[colors.rose]
+tab.gradient = [
+    { at = 0, color = "#FFEAF1" },
+    { at = 0.45, color = "#F7BAD1" },
+    { at = 1, color = "#E996B9" },
+]
+tab.hover = "#FFEAF1"
+page.gradient = [{ at = 0, color = "#E996B9" }, { at = 1, color = "#F9C9DB" }]
+page.hover = "#703F53"
+outline = "#AD617F"
+text = "#131313"
+
+[colors.teal]
+tab.gradient = [
+    { at = 0, color = "#E5FBF4" },
+    { at = 0.45, color = "#AEE5D5" },
+    { at = 1, color = "#7DC8B5" },
+]
+tab.hover = "#E5FBF4"
+page.gradient = [{ at = 0, color = "#7DC8B5" }, { at = 1, color = "#BAEADA" }]
+page.hover = "#306559"
+outline = "#4A9B89"
+text = "#131313"
+
+[colors.cyan]
+tab.gradient = [
+    { at = 0, color = "#E9FCFF" },
+    { at = 0.45, color = "#B0E7F3" },
+    { at = 1, color = "#80CCDF" },
+]
+tab.hover = "#E9FCFF"
+page.gradient = [{ at = 0, color = "#80CCDF" }, { at = 1, color = "#C4EEF7" }]
+page.hover = "#316372"
+outline = "#4B98B0"
+text = "#131313"
+
+[colors.blue]
+tab.gradient = [
+    { at = 0, color = "#ECF4FF" },
+    { at = 0.45, color = "#BACFEF" },
+    { at = 1, color = "#91B1DE" },
+]
+tab.hover = "#ECF4FF"
+page.gradient = [{ at = 0, color = "#91B1DE" }, { at = 1, color = "#CADCF5" }]
+page.hover = "#3C5475"
+outline = "#5C81B4"
+text = "#131313"
+
+[colors.indigo]
+tab.gradient = [
+    { at = 0, color = "#F0F0FF" },
+    { at = 0.45, color = "#CCC8F1" },
+    { at = 1, color = "#A7A2D7" },
+]
+tab.hover = "#F0F0FF"
+page.gradient = [{ at = 0, color = "#A7A2D7" }, { at = 1, color = "#D5D1F3" }]
+page.hover = "#4A476C"
+outline = "#726DA6"
+text = "#131313"
+
+[colors.violet]
+tab.gradient = [
+    { at = 0, color = "#F8EDFF" },
+    { at = 0.45, color = "#DEC2EE" },
+    { at = 1, color = "#C39DDC" },
+]
+tab.hover = "#F8EDFF"
+page.gradient = [{ at = 0, color = "#C39DDC" }, { at = 1, color = "#E6CFF4" }]
+page.hover = "#5D436F"
+outline = "#8F67AB"
+text = "#131313"
+
+[colors.lavender]
+tab.gradient = [
+    { at = 0, color = "#FAF1FF" },
+    { at = 0.45, color = "#E9D0F4" },
+    { at = 1, color = "#CBA7DF" },
+]
+tab.hover = "#FAF1FF"
+page.gradient = [{ at = 0, color = "#CBA7DF" }, { at = 1, color = "#EFDBF7" }]
+page.hover = "#634D71"
+outline = "#9877AE"
+text = "#131313"

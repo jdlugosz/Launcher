@@ -1,0 +1,46 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Launcher: Build Release",
+            "type": "process",
+            "command": "${env:windir}\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\tools\\vscode-build.ps1",
+                "-Action",
+                "Build"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Launcher: Configure x64",
+            "type": "process",
+            "command": "${env:windir}\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\tools\\vscode-build.ps1",
+                "-Action",
+                "Configure"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": "$msCompile",
+            "group": "build"
+        }
+    ]
+}

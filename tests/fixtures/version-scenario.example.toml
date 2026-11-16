@@ -1,0 +1,23 @@
+# Replace every path with an existing, dedicated owned fixture directory.
+# Put the marker and fixture.toml there, and keep all files/evidence inside it.
+schema_version = 1
+instance = 'replace-with-fresh-guid'
+configuration = 'D:\Owned Version Fixture\fixture.toml'
+output_directory = 'D:\Owned Version Fixture\evidence'
+dispatch = 'capture-only'
+
+[[searches]]
+id = 'local'
+provider = 'target'
+path = 'D:\Owned Version Fixture\Local *\Guide.txt'
+attempts = [ {}, {}, {} ]
+
+[[searches]]
+id = 'held'
+provider = 'target'
+path = 'D:\Owned Version Fixture\Held *\Guide.txt'
+attempts = [
+    { outcome = 'native', gate = true, gate_stage = 'cursor' },
+    { outcome = 'incomplete', error = 53 },
+    { outcome = 'failed', error = 5 },
+]

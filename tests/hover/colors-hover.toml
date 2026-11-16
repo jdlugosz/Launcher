@@ -1,0 +1,8 @@
+[colors.orange]
+partial = true
+tab.hover = "#FFE0B7"
+page.hover = "#7F3B00"
+[colors.blue]
+partial = true
+tab.hover = "#ECF4FF"
+page.hover = "#174A9B"

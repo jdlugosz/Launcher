@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <title>Launcher Drop: a red target on a raised pinball paddle</title>
+  <defs>
+    <linearGradient id="face" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#fdfcfa"/><stop offset=".65" stop-color="#f1efed"/><stop offset="1" stop-color="#d6d2ce"/>
+    </linearGradient>
+    <linearGradient id="stem" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#b9b4af"/><stop offset=".4" stop-color="#f4f0eb"/><stop offset="1" stop-color="#aaa39c"/>
+    </linearGradient>
+  </defs>
+  <path d="M61 12H199V170L169 196L150 207V250H112V207L93 196L61 170Z" fill="#746b64" opacity=".22"/>
+  <path d="M57 8H195V166L165 192L146 203V247H108V203L89 192L57 166Z" fill="url(#stem)" stroke="#88817a" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M57 8H195V165H57Z" fill="url(#face)" stroke="#b8b1aa" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M63 15H188V157H63Z" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="2"/>
+  <g fill="none" stroke="#bc163a" stroke-width="10">
+    <circle cx="126" cy="86" r="52"/>
+    <circle cx="126" cy="86" r="32"/>
+  </g>
+  <circle cx="126" cy="86" r="12" fill="#bc163a"/>
+  <path d="M62 168H190L164 188H88Z" fill="#c6c0ba"/>
+  <path d="M102 187Q126 163 151 187Z" fill="#9f9993"/>
+  <path d="M113 209V239" fill="none" stroke="#fdfaf7" stroke-width="3"/>
+</svg>

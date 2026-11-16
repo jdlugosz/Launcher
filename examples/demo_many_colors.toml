@@ -1,0 +1,258 @@
+# All bundled color names, one page per color, along the top of the screen.
+# Run this from Launcher's Examples tab. Change colors to "dark" to compare,
+# or remove colors to see the always-loaded basic and extra definitions.
+# Installed use keeps Demos\demo_many_colors.toml in the Launcher AppData profile.
+# Right-click the running demo and choose Edit configuration to edit that copy.
+# Notepad is launchable; the folder and information icons are decorative.
+schema_version = 1
+colors = "light"
+
+[dock]
+edge = "top"
+display = "primary"
+auto_hide = true
+suppress_fullscreen = true
+
+[grid]
+columns = 30
+rows = 3
+icon_size_dip = 38.4
+icon_spacing_px = 8
+
+[appearance]
+text_size_pt = 9
+thickness = 2.4
+
+[logging]
+file = "demo_many_colors.log"
+
+[[tabs]]
+name = "salmon"
+color = "salmon"
+items = [
+    { label = "Notepad", target = "notepad.exe", icon = { stock = "document" } },
+    { kind = "break" },
+    { icon = { stock = "folder" } },
+    { kind = "break" },
+    { icon = { stock = "information" } },
+]
+
+[[tabs]]
+name = "orange"
+color = "orange"
+items = [
+    { label = "Notepad", target = "notepad.exe", icon = { stock = "document" } },
+    { kind = "break" },
+    { icon = { stock = "folder" } },
+    { kind = "break" },
+    { icon = { stock = "information" } },
+]
+
+[[tabs]]
+name = "yellow"
+color = "yellow"
+items = [
+    { label = "Notepad", target = "notepad.exe", icon = { stock = "document" } },
+    { kind = "break" },
+    { icon = { stock = "folder" } },
+    { kind = "break" },
+    { icon = { stock = "information" } },
+]
+
+[[tabs]]
+name = "green"
+color = "green"
+items = [
+    { label = "Notepad", target = "notepad.exe", icon = { stock = "document" } },
+    { kind = "break" },
+    { icon = { stock = "folder" } },
+    { kind = "break" },
+    { icon = { stock = "information" } },
+]
+
+[[tabs]]
+name = "red"
+color = "red"
+items = [
+    { label = "Notepad", target = "notepad.exe", icon = { stock = "document" } },
+    { kind = "break" },
+    { icon = { stock = "folder" } },
+    { kind = "break" },
+    { icon = { stock = "information" } },
+]
+
+[[tabs]]
+name = "rose"
+color = "rose"
+items = [
+    { label = "Notepad", target = "notepad.exe", icon = { stock = "document" } },
+    { kind = "break" },
+    { icon = { stock = "folder" } },
+    { kind = "break" },
+    { icon = { stock = "information" } },
+]
+
+[[tabs]]
+name = "teal"
+color = "teal"
+items = [
+    { label = "Notepad", target = "notepad.exe", icon = { stock = "document" } },
+    { kind = "break" },
+    { icon = { stock = "folder" } },
+    { kind = "break" },
+    { icon = { stock = "information" } },
+]
+
+[[tabs]]
+name = "cyan"
+color = "cyan"
+items = [
+    { label = "Notepad", target = "notepad.exe", icon = { stock = "document" } },
+    { kind = "break" },
+    { icon = { stock = "folder" } },
+    { kind = "break" },
+    { icon = { stock = "information" } },
+]
+
+[[tabs]]
+name = "blue"
+color = "blue"
+items = [
+    { label = "Notepad", target = "notepad.exe", icon = { stock = "document" } },
+    { kind = "break" },
+    { icon = { stock = "folder" } },
+    { kind = "break" },
+    { icon = { stock = "information" } },
+]
+
+[[tabs]]
+name = "indigo"
+color = "indigo"
+items = [
+    { label = "Notepad", target = "notepad.exe", icon = { stock = "document" } },
+    { kind = "break" },
+    { icon = { stock = "folder" } },
+    { kind = "break" },
+    { icon = { stock = "information" } },
+]
+
+[[tabs]]
+name = "violet"
+color = "violet"
+items = [
+    { label = "Notepad", target = "notepad.exe", icon = { stock = "document" } },
+    { kind = "break" },
+    { icon = { stock = "folder" } },
+    { kind = "break" },
+    { icon = { stock = "information" } },
+]
+
+[[tabs]]
+name = "lavender"
+color = "lavender"
+items = [
+    { label = "Notepad", target = "notepad.exe", icon = { stock = "document" } },
+    { kind = "break" },
+    { icon = { stock = "folder" } },
+    { kind = "break" },
+    { icon = { stock = "information" } },
+]
+
+[[tabs]]
+name = "copper"
+color = "copper"
+items = [
+    { label = "Notepad", target = "notepad.exe", icon = { stock = "document" } },
+    { kind = "break" },
+    { icon = { stock = "folder" } },
+    { kind = "break" },
+    { icon = { stock = "information" } },
+]
+
+[[tabs]]
+name = "purple"
+color = "purple"
+items = [
+    { label = "Notepad", target = "notepad.exe", icon = { stock = "document" } },
+    { kind = "break" },
+    { icon = { stock = "folder" } },
+    { kind = "break" },
+    { icon = { stock = "information" } },
+]
+
+[[tabs]]
+name = "plum"
+color = "plum"
+items = [
+    { label = "Notepad", target = "notepad.exe", icon = { stock = "document" } },
+    { kind = "break" },
+    { icon = { stock = "folder" } },
+    { kind = "break" },
+    { icon = { stock = "information" } },
+]
+
+[[tabs]]
+name = "gold"
+color = "gold"
+items = [
+    { label = "Notepad", target = "notepad.exe", icon = { stock = "document" } },
+    { kind = "break" },
+    { icon = { stock = "folder" } },
+    { kind = "break" },
+    { icon = { stock = "information" } },
+]
+
+[[tabs]]
+name = "lime"
+color = "lime"
+items = [
+    { label = "Notepad", target = "notepad.exe", icon = { stock = "document" } },
+    { kind = "break" },
+    { icon = { stock = "folder" } },
+    { kind = "break" },
+    { icon = { stock = "information" } },
+]
+
+[[tabs]]
+name = "emerald"
+color = "emerald"
+items = [
+    { label = "Notepad", target = "notepad.exe", icon = { stock = "document" } },
+    { kind = "break" },
+    { icon = { stock = "folder" } },
+    { kind = "break" },
+    { icon = { stock = "information" } },
+]
+
+[[tabs]]
+name = "turquoise"
+color = "turquoise"
+items = [
+    { label = "Notepad", target = "notepad.exe", icon = { stock = "document" } },
+    { kind = "break" },
+    { icon = { stock = "folder" } },
+    { kind = "break" },
+    { icon = { stock = "information" } },
+]
+
+[[tabs]]
+name = "silver"
+color = "silver"
+items = [
+    { label = "Notepad", target = "notepad.exe", icon = { stock = "document" } },
+    { kind = "break" },
+    { icon = { stock = "folder" } },
+    { kind = "break" },
+    { icon = { stock = "information" } },
+]
+
+[[tabs]]
+name = "slate"
+color = "slate"
+items = [
+    { label = "Notepad", target = "notepad.exe", icon = { stock = "document" } },
+    { kind = "break" },
+    { icon = { stock = "folder" } },
+    { kind = "break" },
+    { icon = { stock = "information" } },
+]

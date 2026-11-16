@@ -1,0 +1,30 @@
+{
+    "name": "launcher-toml",
+    "displayName": "Launcher TOML",
+    "description": "TOML syntax with percent pragma comments highlighted in inverse red.",
+    "version": "0.1.1",
+    "publisher": "dlugosz",
+    "private": true,
+    "engines": { "vscode": "^1.90.0" },
+    "categories": ["Programming Languages"],
+    "extensionDependencies": ["tamasfe.even-better-toml"],
+    "activationEvents": ["onLanguage:launcher-toml"],
+    "main": "./extension.js",
+    "contributes": {
+        "languages": [{
+            "id": "launcher-toml",
+            "aliases": ["Launcher TOML"],
+            "filenamePatterns": ["Launcher*.toml"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "launcher-toml",
+            "scopeName": "source.launcher-toml",
+            "path": "./syntaxes/launcher-toml.tmLanguage.json"
+        }, {
+            "scopeName": "launcher-toml.pragma.injection",
+            "path": "./syntaxes/pragma.tmLanguage.json",
+            "injectTo": ["source.launcher-toml"]
+        }]
+    }
+}
